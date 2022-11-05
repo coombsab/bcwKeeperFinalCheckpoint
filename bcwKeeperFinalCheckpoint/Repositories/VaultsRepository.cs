@@ -26,6 +26,22 @@ public class VaultsRepository
     }, new { vaultId }).FirstOrDefault();
   }
 
+  public List<Vault> GetMyVaults(string userId) {
+    string sql = @"
+      SELECT
+        v.*,
+        a.*
+      FROM vaults v
+      JOIN accounts a ON a.id = v.creatorId
+      WHERE v.creatorId = @userId;
+    ";
+
+    return _db.Query<Vault, Profile, Vault>(sql, (vault, profile) => {
+      vault.Creator = profile;
+      return vault;
+    }, new { userId }).ToList();
+  }
+
   public int CreateVault(Vault vaultData)
   {
     string sql = @"

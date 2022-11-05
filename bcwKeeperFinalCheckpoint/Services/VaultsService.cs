@@ -35,6 +35,10 @@ public class VaultsService
     return vault;
   }
 
+  public List<Vault> GetMyVaults(string userId) {
+    return _vaultsRepository.GetMyVaults(userId);
+  }
+
   public Vault CreateVault(Vault vaultData, string userId)
   {
     vaultData.CreatorId = userId;
