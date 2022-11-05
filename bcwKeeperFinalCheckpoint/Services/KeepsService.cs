@@ -43,6 +43,20 @@ public class KeepsService
     return keep;
   }
 
+  public Keep GetKeepByIdIncrementViews(int keepId)
+  {
+    Keep keep = _keepsRepository.GetKeepById(keepId);
+    if (keep == null)
+    {
+      throw new Exception("Could not find keep due to invalid ID.");
+    }
+
+    keep.Views++;
+    UpdateKeep(keep);
+
+    return keep;
+  }
+
   public List<KeepInVault> GetKeepsInVault(int vaultId, Account userInfo) {
     Vault vault = _vaultsService.GetVaultById(vaultId);
     if (vault.isPrivate == true) {
@@ -77,6 +91,10 @@ public class KeepsService
     keep.Tags = keepData.Tags ?? keep.Tags;
 
     return _keepsRepository.EditKeep(keep);
+  }
+
+  public void UpdateKeep(Keep keep) {
+    _keepsRepository.EditKeep(keep);
   }
 
   public Keep DeleteKeep(int keepId, string userId)

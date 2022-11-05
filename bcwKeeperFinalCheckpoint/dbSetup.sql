@@ -22,13 +22,13 @@ CREATE TABLE
         name VARCHAR(255) NOT NULL COMMENT 'Name of keep',
         description MEDIUMTEXT NOT NULL COMMENT 'Description of keep',
         img MEDIUMTEXT NOT NULL COMMENT 'Image of keep',
-        views INT NOT NULL DEFAULT 0,
+        views INT NOT NULL CHECK(views >= 0),
         tags VARCHAR(255) COMMENT 'Comma separated list of tags',
         FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';
 
 ALTER TABLE
-    keeps MODIFY COLUMN tags MEDIUMTEXT COMMENT 'Comma separated list of tags';
+    keeps MODIFY COLUMN views INT NOT NULL CHECK(views >= 0);
 
 CREATE TABLE
     IF NOT EXISTS vaults (

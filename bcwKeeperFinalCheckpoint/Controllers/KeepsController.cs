@@ -26,7 +26,7 @@ public class KeepsController : ControllerBase {
   [HttpGet("{keepId}")]
   public ActionResult<Keep> GetKeepById(int keepId) {
     try {
-      Keep keep = _keepsService.GetKeepById(keepId);
+      Keep keep = _keepsService.GetKeepByIdIncrementViews(keepId);
       return Ok(keep);
     }
     catch(Exception e) {

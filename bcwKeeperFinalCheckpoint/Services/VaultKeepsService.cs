@@ -26,6 +26,7 @@ public class VaultKeepsService
     if (vault.CreatorId != userId) {
       throw new Exception("You cannot add keeps to a vault that is not yours.");
     }
+
     vaultKeepData.CreatorId = userId;
     int vaultKeepId = _vaultKeepsRepository.CreateVaultKeep(vaultKeepData);
     VaultKeep vaultKeep = GetVaultKeepById(vaultKeepId);

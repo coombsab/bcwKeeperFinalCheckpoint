@@ -6,7 +6,7 @@ public class Keep : DbItem<int>
   public string Name { get; set; }
   public string Description { get; set; }
   public string Img { get; set; }
-  public int Views { get; set; }
+  public int Views { get; set; } = 0;
   public string Tags { get; set; }
 
   // populated data
