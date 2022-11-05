@@ -74,6 +74,23 @@ public class KeepsRepository
     }, new { keepId }).FirstOrDefault();
   }
 
+  public List<KeepInVault> GetKeepsInVault(int vaultId) {
+    string sql = @"
+      SELECT
+        k.*,
+        vk.id AS VaultKeepId,
+        a.*
+      FROM keeps k
+      JOIN vaultKeeps vk ON vk.vaultId = @vaultId
+      JOIN accounts a ON a.id = k.creatorId
+    ";
+
+    return _db.Query<KeepInVault, Profile, KeepInVault>(sql, (keep, profile) => {
+      keep.Creator = profile;
+      return keep;
+    }, new { vaultId }).ToList();
+  }
+
   public int CreateKeep(Keep keepData)
   {
     string sql = @"
