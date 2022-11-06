@@ -1,9 +1,9 @@
 <template>
-  <header>
-    <Navbar />
-  </header>
-  <main>
-    <router-view />
+  <main class="d-flex flex-column">
+    <Navbar class="order-md-0 order-1" />
+    <div class="order-md-1 order-0">
+      <router-view />
+    </div>
   </main>
 </template>
 
@@ -26,12 +26,5 @@ export default {
 
 :root{
   --main-height: calc(100vh - 32px - 64px);
-}
-
-
-footer {
-  display: grid;
-  place-content: center;
-  height: 32px;
 }
 </style>

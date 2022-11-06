@@ -1,61 +1,57 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
-    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <div class="d-flex flex-column align-items-center">
-        <img alt="logo" src="../assets/img/cw-logo.png" height="45" />
+  <nav
+    class="navbar navbar-expand-lg bg-nav px-3 sticky-md-top sticky-bottom justify-content-between align-items-center">
+    <div class="nav-wrapper d-flex justify-content-between align-items-center">
+      <div class="d-flex justify-content-between align-items-center gap-5 order-3 order-md-0">
+        <div class="sm-hidden z-1">
+          <router-link :to="{ name: 'Home' }">
+            <button class="btn">Home</button>
+          </router-link>
+        </div>
+        <CreateDropMenu class="order-2 order-md-1" />
       </div>
-    </router-link>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarText"
-      aria-controls="navbarText"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto">
-        <li>
-        </li>
-      </ul>
-      <!-- LOGIN COMPONENT HERE -->
-      <Login />
+      <Login class="order-3 z-1" />
+      <div class="logo-wrapper d-flex align-items-center justify-content-center order-0 order-md-2">
+        <img alt="logo" src="../assets/img/Keepr-logo.png" height="75.53" />
+      </div>
     </div>
   </nav>
 </template>
 
 <script>
+import CreateDropMenu from "./CreateDropMenu.vue";
 import Login from './Login.vue'
 export default {
   setup() {
     return {}
   },
-  components: { Login }
+  components: { Login, CreateDropMenu }
 }
 </script>
 
 <style scoped>
-a:hover {
-  text-decoration: none;
+.bg-nav {
+  background-color: #FEF6F0;
 }
 
-.nav-link {
-  text-transform: uppercase;
-}
-
-.navbar-nav .router-link-exact-active {
-  border-bottom: 2px solid var(--bs-success);
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+.nav-wrapper {
+  height: 100%;
+  width: 100%;
 }
 
 @media screen and (min-width: 768px) {
-  nav {
-    height: 64px;
+  .logo-wrapper {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+  }
+
+  .nav-wrapper {
+    position: relative;
+    height: 100%;
+    width: 100%;
   }
 }
-
 </style>

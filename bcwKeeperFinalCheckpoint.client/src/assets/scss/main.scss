@@ -41,3 +41,30 @@ form:invalid button[type="submit"] {
   filter: grayscale(1);
   pointer-events: none;
 }
+
+.sm-hidden {
+  display: none;
+}
+
+.md-hidden {
+  display: block;
+}
+
+.z-1 {
+  z-index: 1;
+}
+
+
+@media screen and (min-width: 768px) {
+  .sm-hidden {
+    display: block;
+  }
+
+  .md-hidden {
+    display: none;
+  }
+
+  .z-md-1 {
+    z-index: 1;
+  }
+}

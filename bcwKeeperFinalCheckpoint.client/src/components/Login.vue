@@ -6,10 +6,10 @@
     </button>
     <div v-else>
       <div class="dropdown dropstart my-2 my-lg-0">
-        <div type="button" class="bg-dark border-0 selectable no-select" data-bs-toggle="dropdown"
+        <div type="button" class="bg-dark border-0 selectable no-select circle" data-bs-toggle="dropdown"
           aria-expanded="false">
           <div v-if="account.picture || user.picture">
-            <img :src="account.picture || user.picture" alt="account photo" height="40" class="rounded" />
+            <img :src="account.picture || user.picture" alt="account photo" class="account-photo circle" />
           </div>
         </div>
         <div class="dropdown-menu dropdown-menu-lg-left p-0" aria-labelledby="authDropdown">
@@ -51,4 +51,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.circle {
+  border-radius: 50%;
+}
+
+.account-photo {
+  height: 53.3px;
+}
+
+@media screen and (min-width: 768px) {
+  .account-photo {
+    height: 64px;
+  }
+}
 </style>
