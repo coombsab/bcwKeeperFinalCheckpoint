@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { Keep } from "../models/Keep.js";
 export default {
   props: {
     keep: { type: Keep, required: true }
@@ -12,7 +13,7 @@ export default {
   setup() {
     
     return {
-      
+
     }
   }
 }
