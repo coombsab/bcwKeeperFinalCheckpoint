@@ -1,8 +1,6 @@
 <template>
   <div class="home p-3">
     <KeepCard v-for="k in keeps" :key="k.id" :keep="k" />
-
-    <!-- <Tag :tag="'Hello World'" /> -->
   </div>
 </template>
 

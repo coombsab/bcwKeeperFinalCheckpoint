@@ -4,10 +4,17 @@ import { api } from "./AxiosService";
 
 class KeepsService {
   async getKeeps()  {
-    console.log("getting the keeps")
     const res = await api.get("api/keeps")
     AppState.keeps = res.data.map(data => new Keep(data))
-    console.log(AppState.keeps)
+  }
+
+  async setActiveKeep(keepId) {
+    AppState.activeKeep = null
+    const res = await api.get(`api/keeps/${keepId}`)
+    let keep = new Keep(res.data)
+    AppState.activeKeep = keep
+    let keepIndex = AppState.keeps.findIndex(k => k.id === keep.id)
+    AppState.keeps.splice(keepIndex, 1, keep)
   }
 }
 
