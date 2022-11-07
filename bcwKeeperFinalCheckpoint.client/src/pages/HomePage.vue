@@ -20,7 +20,7 @@ export default {
         await keepsService.getKeeps()
       }
       catch (error) {
-        Pop.error(error.message, "[function]")
+        Pop.error(error.message, "[getKeeps]")
       }
     }
 
@@ -38,27 +38,11 @@ export default {
 <style scoped lang="scss">
 .home {
   columns: 2;
-  // column-gap: 1rem;
 }
 
 @media screen and (min-width: 768px) {
   .home {
     columns: 4;
-    // column-gap: 1rem;
   }
 }
-
-.masonry {
-  columns: 4;
-  // max-height: 80vh;
-  // overflow-x: auto;
-  // column-gap: 1rem;
-}
-
-// .home {
-//   display: flex;
-//   flex-direction: column;
-//   flex-wrap: wrap;
-//   max-height: 80vh;
-// }
 </style>

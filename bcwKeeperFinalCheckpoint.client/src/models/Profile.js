@@ -1,6 +1,6 @@
 export class Profile {
   constructor(data) {
-    this.id = data.id
+    this.id = data.id || data._id
     this.createdAt = data.createdAt
     this.updatedAt = data.updatedAt
     this.name = data.name
