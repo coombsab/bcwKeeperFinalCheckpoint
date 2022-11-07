@@ -1,22 +1,86 @@
 <template>
   <section class="profile">
-    <Tag :tag="'Profile Page ' + route.params.profileId" />
+    <h1>PROFILE INFO for {{profile?.name}}</h1>
+  </section>
+  <h1>Vaults</h1>
+  <section class="vaults gap-3">
+    <VaultCard v-for="v in vaults" :key="v.id" :vault="v" />
+  </section>
+  <h1>Keeps</h1>
+  <section class="keeps p-3">
+    <KeepCard v-for="k in keeps" :key="k.id" :keep="k" />
   </section>
 </template>
 
 <script>
+import { computed } from "@vue/reactivity";
+import { onMounted } from "vue";
 import { useRoute } from "vue-router";
+import { AppState } from "../AppState";
+import { accountService } from "../services/AccountService";
+import Pop from "../utils/Pop";
 
 export default {
   setup() {
     const route = useRoute()
+
+    async function setActiveProfile() {
+      try {
+        await accountService.getProfile(route.params.profileId)
+      }
+      catch(error) {
+        Pop.error(error.message, "[setActiveProfile]")
+      }
+    }
+
+    async function getUserVaults() {
+      try {
+        await accountService.getUserVaults(route.params.profileId)
+      }
+      catch(error) {
+        Pop.error(error.message, "[function]")
+      }
+    }
+
+    async function getUserKeeps() {
+      try {
+        await accountService.getUserKeeps(route.params.profileId)
+      }
+      catch(error) {
+        Pop.error(error.message, "[function]")
+      }
+    }
+
+    onMounted(() => {
+      setActiveProfile()
+      getUserVaults()
+      getUserKeeps()
+    })
+    
     return {
-      route
+      route,
+      profile: computed(() => AppState.activeProfile),
+      keeps: computed(() => AppState.keeps),
+      vaults: computed(() => AppState.vaults)
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
-  
+.vaults {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.keeps {
+  columns: 2;
+}
+
+@media screen and (min-width: 768px) {
+  .keeps {
+    columns: 4;
+  }
+}
 </style>
