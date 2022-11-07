@@ -1,5 +1,6 @@
 import { AppState } from "../AppState";
 import { Keep } from "../models/Keep";
+import { KeepInVault } from "../models/KeepInVault";
 import { api } from "./AxiosService";
 
 class KeepsService {
@@ -28,6 +29,12 @@ class KeepsService {
     AppState.keeps = []
     const res = await api.get(`api/profiles/${profileId}/keeps`)
     AppState.keeps = res.data.map(data => new Keep(data))
+  }
+
+  async getKeepsInVault(vaultId) {
+    AppState.keepsInVault = []
+    const res = await api.get(`api/vaults/${vaultId}/keeps`)
+    AppState.keepsInVault = res.data.map(data => new KeepInVault(data))
   }
 }
 
