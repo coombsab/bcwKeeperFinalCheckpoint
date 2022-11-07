@@ -18,6 +18,12 @@ class KeepsService {
     AppState.keeps.splice(keepIndex, 1, keep)
   }
 
+  async getMyKeepsById(profileId) {
+    AppState.myKeeps = []
+    const res = await api.get(`api/profiles/${profileId}/keeps`)
+    AppState.myKeeps = res.data.map(data => new Keep(data))
+  }
+
   async getKeepsByProfileId(profileId) {
     AppState.keeps = []
     const res = await api.get(`api/profiles/${profileId}/keeps`)

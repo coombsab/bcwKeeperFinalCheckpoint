@@ -4,9 +4,11 @@
     <img class="rounded" :src="account.picture" alt="" />
     <p>{{ account.email }}</p>
   </section>
-  <section class="vaults">
-    
+  <h1>Vaults</h1>
+  <section class="vaults gap-3">
+    <VaultCard v-for="v in myVaults" :key="v.id" :vault="v" />
   </section>
+  <h1>Keeps</h1>
   <section class="keeps p-3">
     <KeepCard v-for="k in myKeeps" :key="k.id" :keep="k" />
   </section>
@@ -16,34 +18,28 @@
 import { computed, onMounted } from 'vue'
 import { AppState } from '../AppState'
 import KeepCard from "../components/KeepCard.vue"
-import { keepsService } from "../services/KeepsService"
-import Pop from "../utils/Pop"
+import VaultCard from "../components/VaultCard.vue"
 export default {
-    setup() {
-        async function getMyKeeps() {
-            try {
-                await keepsService.getKeepsByProfileId(AppState.account.id);
-            }
-            catch (error) {
-                Pop.error(error.message, "[function]");
-            }
-        }
-        onMounted(() => {
-            getMyKeeps();
-        });
-        return {
-            account: computed(() => AppState.account),
-            myVaults: computed(() => AppState.myVaults),
-            myKeeps: computed(() => AppState.keeps)
-        };
-    },
-    components: { KeepCard }
+  setup() {
+    return {
+      account: computed(() => AppState.account),
+      myVaults: computed(() => AppState.myVaults),
+      myKeeps: computed(() => AppState.myKeeps)
+    };
+  },
+  components: { KeepCard, VaultCard }
 }
 </script>
 
 <style scoped>
 img {
   max-width: 100px;
+}
+
+.vaults {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
 .keeps {
