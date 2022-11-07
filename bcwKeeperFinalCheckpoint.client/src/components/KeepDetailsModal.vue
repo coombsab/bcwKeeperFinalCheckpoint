@@ -21,14 +21,18 @@
               <div class="">
                 <span>{{ keep?.description }}</span>
               </div>
-              <div class="d-flex flex-wrap justify-content-between align-items-center w-100" id="keepDetailsModalContent">
-                <div class="d-flex gap-2 align-items-center">
-                  <span>DROPDOWN</span>
+              <div class="d-flex flex-wrap justify-content-between align-items-center w-100"
+                id="keepDetailsModalContent">
+                <div class="d-flex gap-2 align-items-center" v-if="myVaults.length > 0">
+                  <select name="selectVault" id="selectVault" v-model="editable.vaultId" placeholder="Select a Vault">
+                    <option v-for="v in myVaults" :value="v.id">{{ v.name }}</option>
+                  </select>
                   <button class="btn">save</button>
                 </div>
+                <div v-else><span>You have no vaults.</span></div>
                 <div class="d-flex gap-2 align-items-center">
-                  <span>USER IMG</span>
-                  <span>USER NAME</span>
+                  <img :src="keep?.img" :alt="keep?.name" class="profile-img selectable" @click="goToProfile()">
+                  <span>{{ keep?.name }}</span>
                 </div>
               </div>
             </div>
@@ -42,11 +46,15 @@
 
 <script>
 import { computed } from "@vue/reactivity";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
 import { AppState } from "../AppState";
 
 export default {
   setup() {
+    const editable = ref({})
+    const router = useRouter()
+
     function setup() {
       let modalBg = document.getElementById("keepDetailsModal")
       let modal = document.getElementById("keepDetailsModalContent")
@@ -71,7 +79,14 @@ export default {
       setup()
     })
     return {
+      editable,
+      router,
       keep: computed(() => AppState.activeKeep),
+      myVaults: computed(() => AppState.myVaults),
+      goToProfile() {
+        router.push({ name: "Profile", params: { profileId: this.keep.creatorId }})
+        document.getElementById("keepDetailsModal").style.display = "none"
+      }
     }
   }
 }
@@ -121,6 +136,12 @@ export default {
   background-position: center;
   background-size: cover;
   border-radius: 6.94872px 0 0 6.94872px;
+}
+
+.profile-img {
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
 }
 
 @media screen and (min-width: 768px) {
