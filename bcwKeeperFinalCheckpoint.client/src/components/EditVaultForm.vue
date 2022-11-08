@@ -1,12 +1,12 @@
 <template>
-  <form @submit.prevent="createVault()">
+  <form @submit.prevent="editVault()">
     <div class="form-floating mb-3">
-      <input type="text" class="form-control" name="vaultName" id="vaultName" placeholder="Name" required v-model="editable.name">
-      <label for="vaultName">Name</label>
+      <input type="text" class="form-control" name="vaultName" id="editVaultName" placeholder="Name" required v-model="editable.name">
+      <label for="editVaultName">Name</label>
     </div>
     <div class="form-floating mb-3">
-      <input type="url" class="form-control" name="vaultImg" id="vaultImg" placeholder="Image URL" required v-model="editable.img">
-      <label for="vaultImg">Image URL</label>
+      <input type="url" class="form-control" name="vaultImg" id="editVaultImg" placeholder="Image URL" required v-model="editable.img">
+      <label for="editVaultImg">Image URL</label>
     </div>
     <div class="text-end">
       <span>Private vaults can only be seen by you</span>
@@ -20,13 +20,17 @@
 </template>
 
 <script>
+import { Modal } from "bootstrap";
 import { ref, watchEffect } from "vue";
+import { useRoute } from "vue-router";
 import { AppState } from "../AppState";
+import { vaultsService } from "../services/VaultsService";
 import Pop from "../utils/Pop";
 
 export default {
   setup() {
     const editable = ref({})
+    const route = useRoute()
 
     watchEffect(() => {
       editable.value = {...AppState.activeVault}
@@ -34,9 +38,11 @@ export default {
     
     return {
       editable,
-      async createVault() {
+      route,
+      async editVault() {
         try {
-          console.log("Creating a keep, whee")
+          await vaultsService.editVault(editable.value, route.params.vaultId)
+          Modal.getOrCreateInstance("#editVaultModal").hide()
         }
         catch(error) {
           Pop.error(error.message, "[createKeep]")

@@ -23,10 +23,8 @@
               </div>
               <div class="d-flex flex-wrap justify-content-between align-items-center w-100"
                 id="keepDetailsModalContent">
-                <div v-if="vault?.creatorId === account?.id">
-                  <KeepDetailsDropMenu :keep="keep" v-if="route.name !== 'Vault'" />
-                  <KeepDetailsRemove :keepInVault="keep" v-else />
-                </div>
+                <KeepDetailsRemove :keepInVault="keep" v-if="route.name === 'Vault' && vault?.creatorId === account?.id" />
+                <KeepDetailsDropMenu :keep="keep" v-else />
                 <div class="d-flex gap-2 align-items-center">
                   <img :src="keep?.creator.picture" :alt="keep?.creator.name" class="profile-img selectable"
                     @click="goToProfile()">

@@ -10,7 +10,7 @@
         class="profile-img selectable m-3">
     </router-link>
     <i class="mdi mdi-close on-hover selectable delete-icon text-visible" title="Delete Keep" @click="deleteKeep()"
-      v-if="keep?.creatorId === account.id || keepInVault?.creatorId === account.id"></i>
+      v-if="(keep?.creatorId === account.id || keepInVault?.creatorId === account.id) && user.isAuthenticated"></i>
   </section>
 </template>
 
@@ -30,6 +30,7 @@ export default {
   setup(props) {
     return {
       account: computed(() => AppState.account),
+      user: computed(() => AppState.user),
       async setActiveKeep() {
         try {
           if(props.keep) {

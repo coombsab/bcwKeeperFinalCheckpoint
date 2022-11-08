@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="navbar navbar-expand-lg bg-nav px-3 sticky-md-top sticky-bottom justify-content-between align-items-center">
+    class="navbar navbar-expand-lg bg-nav px-3 p-md-3 sticky-md-top sticky-bottom justify-content-between align-items-center">
     <div class="nav-wrapper d-flex justify-content-between align-items-center">
       <div class="d-flex justify-content-between align-items-center gap-5 order-3 order-md-0">
         <div class="sm-hidden z-1">
@@ -8,7 +8,7 @@
             <button class="btn">Home</button>
           </router-link>
         </div>
-        <CreateDropMenu class="order-2 order-md-1" />
+        <CreateDropMenu class="order-2 order-md-1" v-if="user.isAuthenticated" />
       </div>
       <Login class="order-3 z-1" />
       <div class="logo-wrapper d-flex align-items-center justify-content-center order-0 order-md-2">
@@ -19,11 +19,15 @@
 </template>
 
 <script>
+import { computed } from "@vue/reactivity";
+import { AppState } from "../AppState";
 import CreateDropMenu from "./CreateDropMenu.vue";
 import Login from './Login.vue'
 export default {
   setup() {
-    return {}
+    return {
+      user: computed(() => AppState.user)
+    }
   },
   components: { Login, CreateDropMenu }
 }
@@ -33,6 +37,8 @@ export default {
 .bg-nav {
   background-color: #FEF6F0;
 }
+
+
 
 .nav-wrapper {
   height: 100%;

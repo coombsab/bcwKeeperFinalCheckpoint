@@ -1,11 +1,13 @@
 <template>
-  <div class="d-flex gap-2 align-items-center" v-if="myVaults.length > 0">
-    <select name="selectVault" id="selectVault" v-model="editable.vaultId" placeholder="Select a Vault" required>
-      <option v-for="v in myVaults" :value="v.id">{{ v.name }}</option>
-    </select>
-    <button class="btn" type="submit" @click="saveKeepToVault()">save</button>
+  <div v-if="user.isAuthenticated">
+    <div class="d-flex gap-2 align-items-center" v-if="myVaults.length > 0">
+      <select name="selectVault" id="selectVault" v-model="editable.vaultId" placeholder="Select a Vault" required>
+        <option v-for="v in myVaults" :value="v.id">{{ v.name }}</option>
+      </select>
+      <button class="btn" type="submit" @click="saveKeepToVault()">save</button>
+    </div>
+    <div v-else><span>You have no vaults.</span></div>
   </div>
-  <div v-else><span>You have no vaults.</span></div>
 </template>
 
 <script>
@@ -25,6 +27,7 @@ export default {
 
     return {
       editable,
+      user: computed(() => AppState.user),
       myVaults: computed(() => AppState.myVaults),
       async saveKeepToVault() {
         try {
