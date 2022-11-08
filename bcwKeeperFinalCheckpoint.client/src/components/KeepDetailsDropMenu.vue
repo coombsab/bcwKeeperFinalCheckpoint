@@ -13,11 +13,12 @@ import { computed } from "@vue/reactivity";
 import { ref } from "vue";
 import { AppState } from "../AppState";
 import { Keep } from "../models/Keep";
+import { vaultKeepsService } from "../services/VaultKeepsService";
 import Pop from "../utils/Pop";
 
 export default {
   props: {
-    keep: { type: Keep, required: true }
+    keep: { type: Keep }
   },
   setup(props) {
     const editable = ref({})
@@ -27,7 +28,11 @@ export default {
       myVaults: computed(() => AppState.myVaults),
       async saveKeepToVault() {
         try {
-          console.log("saving keep to vault", this.editable.vaultId)
+          await vaultKeepsService.saveKeepToVault(this.editable.vaultId, props.keep.id)
+          const modal = document.getElementById("keepDetailsModal")
+          const body = document.querySelector("body")
+          modal.style.display = "none"
+          body.style.overflow = "auto"
           Pop.toast(`Saved ${props.keep.name} to vault.`)
         }
         catch (error) {

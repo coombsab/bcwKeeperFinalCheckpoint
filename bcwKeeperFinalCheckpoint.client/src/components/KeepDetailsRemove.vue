@@ -9,11 +9,14 @@
 import { computed } from "@vue/reactivity";
 import { AppState } from "../AppState";
 import { Keep } from "../models/Keep";
+import { KeepInVault } from "../models/KeepInVault";
+import { vaultKeepsService } from "../services/VaultKeepsService";
 import Pop from "../utils/Pop";
 
 export default {
   props: {
-    keep: { type: Keep, required: true }
+    keep: { type: Keep },
+    keepInVault: { type: KeepInVault }
   },
   setup(props) {
     return {
@@ -22,15 +25,21 @@ export default {
         try {
           let modal = document.getElementById("keepDetailsModal")
           modal.style.zIndex = "0"
-          const yes = await Pop.confirm(`Remove ${props.keep.name} from ${this.vault.name}?`)
+          const yes = await Pop.confirm(`Remove ${props.keepInVault.name} from ${this.vault.name}?`)
           modal.style.zIndex = "2000"
           if (!yes) {
             return
           }
-          Pop.toast(`Removed ${props.keep.name} from ${this.vault.name}`)
+
+          await vaultKeepsService.removeKeepFromVault(props.keepInVault.vaultKeepId)
+          modal.style.display = "none"
+          let body = document.querySelector("body");
+          body.style.overflow = "auto"
+          Pop.toast(`Removed ${props.keepInVault.name} from ${this.vault.name}`)
+
         }
-        catch(error) {
-          Pop.error(error.message, "[function]")
+        catch (error) {
+          Pop.error(error.message, "[removeKeepFromVault]")
         }
       }
     }
@@ -39,8 +48,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  img {
-    height: 18px;
-    width: 18px;
-  }
+img {
+  height: 18px;
+  width: 18px;
+}
 </style>

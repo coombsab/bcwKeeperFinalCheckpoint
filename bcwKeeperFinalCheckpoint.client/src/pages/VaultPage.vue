@@ -18,13 +18,13 @@
             </div>
           </div>
         </div>
-        <div class="d-flex justify-content-center"><span class="keeps-count px-2 py-2">{{keeps.length}} Keeps</span></div>
+        <div class="d-flex justify-content-center"><span class="keeps-count px-2 py-2">{{keepsInVault.length}} Keeps</span></div>
       </div>
     </div>
 
   </section>
   <div class="keeps p-3">
-    <KeepCard v-for="k in keeps" :key="k.vaultKeepId" :keep="k" />  
+    <KeepCard v-for="k in keepsInVault" :key="k.vaultKeepId" :keepInVault="k" />  
   </div>
 </template>
 
@@ -67,7 +67,7 @@ export default {
 
         return {
             route,
-            keeps: computed(() => AppState.keepsInVault),
+            keepsInVault: computed(() => AppState.keepsInVault),
             vault: computed(() => AppState.activeVault),
             async deleteVault() {
               try {

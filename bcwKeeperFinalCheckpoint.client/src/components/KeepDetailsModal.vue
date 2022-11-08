@@ -23,17 +23,19 @@
               </div>
               <div class="d-flex flex-wrap justify-content-between align-items-center w-100"
                 id="keepDetailsModalContent">
-                <KeepDetailsDropMenu :keep="keep" v-if="route.name !== 'Vault'" />
-                <KeepDetailsRemove :keep="keep" v-else />
+                <div v-if="vault?.creatorId === account?.id">
+                  <KeepDetailsDropMenu :keep="keep" v-if="route.name !== 'Vault'" />
+                  <KeepDetailsRemove :keepInVault="keep" v-else />
+                </div>
                 <div class="d-flex gap-2 align-items-center">
-                  <img :src="keep?.creator.picture" :alt="keep?.creator.name" class="profile-img selectable" @click="goToProfile()">
+                  <img :src="keep?.creator.picture" :alt="keep?.creator.name" class="profile-img selectable"
+                    @click="goToProfile()">
                   <span>{{ keep?.creator.name }}</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
@@ -48,43 +50,45 @@ import KeepDetailsDropMenu from "./KeepDetailsDropMenu.vue";
 import KeepDetailsRemove from "./KeepDetailsRemove.vue";
 
 export default {
-    setup() {
-        const router = useRouter();
-        const route = useRoute();
+  setup() {
+    const router = useRouter();
+    const route = useRoute();
 
-        function setup() {
-            let modalBg = document.getElementById("keepDetailsModal");
-            let modal = document.getElementById("keepDetailsModalContent");
-            modalBg.addEventListener("click", closeModal);
-            modal.addEventListener("click", modalClick);
-        }
-        function modalClick(event) {
-            event.preventDefault();
-            event.stopPropagation();
-            event.stopImmediatePropagation();
-            return false;
-        }
-        function closeModal() {
-            let modal = document.getElementById("keepDetailsModal");
-            let body = document.querySelector("body");
-            modal.style.display = "none";
-            body.style.overflow = "auto";
-        }
-        onMounted(() => {
-            setup();
-        });
-        return {
-            router,
-            route,
-            keep: computed(() => AppState.activeKeep),
-            myVaults: computed(() => AppState.myVaults),
-            goToProfile() {
-                router.push({ name: "Profile", params: { profileId: this.keep.creatorId } });
-                document.getElementById("keepDetailsModal").style.display = "none";
-            }
-        };
-    },
-    components: { KeepDetailsDropMenu, KeepDetailsRemove }
+    function setupModal() {
+      let modalBg = document.getElementById("keepDetailsModal");
+      let modal = document.getElementById("keepDetailsModalContent");
+      modalBg.addEventListener("click", closeModal);
+      modal.addEventListener("click", modalClick);
+    }
+    function modalClick(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+      return false;
+    }
+    function closeModal() {
+      let modal = document.getElementById("keepDetailsModal");
+      let body = document.querySelector("body");
+      modal.style.display = "none";
+      body.style.overflow = "auto";
+    }
+    onMounted(() => {
+      setupModal();
+    });
+    return {
+      router,
+      route,
+      keep: computed(() => AppState.activeKeep),
+      // myVaults: computed(() => AppState.myVaults),
+      vault: computed(() => AppState.activeVault),
+      account: computed(() => AppState.account),
+      goToProfile() {
+        router.push({ name: "Profile", params: { profileId: this.keep.creatorId } });
+        document.getElementById("keepDetailsModal").style.display = "none";
+      },
+    };
+  },
+  components: { KeepDetailsDropMenu, KeepDetailsRemove }
 }
 </script>
 

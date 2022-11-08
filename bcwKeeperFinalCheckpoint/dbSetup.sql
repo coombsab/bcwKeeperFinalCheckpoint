@@ -60,3 +60,45 @@ CREATE TABLE
         FOREIGN KEY (vaultId) REFERENCES vaults(id) ON DELETE CASCADE,
         FOREIGN KEY (keepId) REFERENCES keeps(id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';
+
+-- SELECT
+
+--     alb.*,
+
+--     COUNT(am.id) AS MemberCount,
+
+--     am.id AS AlbumMemberId,
+
+--     a.*
+
+-- FROM album_members am
+
+--     JOIN albums alb ON alb.id = am.albumId
+
+--     JOIN accounts a ON a.id = alb.creatorId
+
+-- WHERE
+
+--     am.accountId = @accountId
+
+-- GROUP BY am.id
+
+SELECT
+    k.*,
+    vk.id AS VaultKeepId,
+    a.*
+FROM vaultKeeps vk
+    JOIN keeps k ON k.id = vk.keepId
+    JOIN accounts a ON a.id = k.creatorId
+WHERE vk.vaultId = 110;
+
+SELECT * FROM vaultKeeps WHERE vaultId = 110;
+
+SELECT
+    k.*,
+    COUNT(vk.id) AS Kept,
+    a.*
+FROM keeps k
+    JOIN accounts a ON a.id = k.creatorId
+    LEFT JOIN vaultKeeps vk ON vk.keepId = k.id
+GROUP BY k.id;

@@ -80,9 +80,10 @@ public class KeepsRepository
         k.*,
         vk.id AS VaultKeepId,
         a.*
-      FROM keeps k
-      JOIN vaultKeeps vk ON vk.vaultId = @vaultId
-      JOIN accounts a ON a.id = k.creatorId
+      FROM vaultKeeps vk
+        JOIN keeps k ON k.id = vk.keepId
+        JOIN accounts a ON a.id = k.creatorId
+      WHERE vk.vaultId = @vaultId;
     ";
 
     return _db.Query<KeepInVault, Profile, KeepInVault>(sql, (keep, profile) => {

@@ -1,32 +1,46 @@
 <template>
   <section class="keep-card mb-3 elevation-3 pos-relative">
     <div class="keep-card-wrapper pos-relative" @click="openModal()">
-      <img :src="keep.img" :alt="keep.name" class="img-fluid" data-toggle="modal" data-target="#keepDetailsModal">
-      <span class="text-visible keep-label m-3">{{keep.name}}</span>
+      <img :src="keep?.img || keepInVault?.img" :alt="keep?.name || keepInVault?.name" class="img-fluid" data-toggle="modal" data-target="#keepDetailsModal">
+
+      <span class="text-visible keep-label m-3">{{ keep?.name || keepInVault?.name }}</span>
     </div>
-    <router-link :to="{ name: 'Profile', params: { profileId: keep.creatorId } }">
-      <img :src="keep.creator.picture" :alt="keep.creator.name" :title="keep.creator.name" class="profile-img selectable m-3">
+    <router-link :to="{ name: 'Profile', params: { profileId: keep?.creatorId || keepInVault?.creatorId } }">
+      <img :src="keep?.creator.picture || keepInVault?.creator.picture" :alt="keep?.creator.name || keepInVault?.creator.name" :title="keep?.creator.name || keepInVault?.creator.name"
+        class="profile-img selectable m-3">
     </router-link>
-    <i class="mdi mdi-close on-hover selectable delete-icon text-visible" title="Delete Keep" @click="deleteKeep()" v-if="keep.creatorId === account.id"></i>
+    <i class="mdi mdi-close on-hover selectable delete-icon text-visible" title="Delete Keep" @click="deleteKeep()"
+      v-if="keep?.creatorId === account.id || keepInVault?.creatorId === account.id"></i>
   </section>
 </template>
 
 <script>
 import { computed } from "@vue/reactivity";
 import { AppState } from "../AppState";
-import { Keep } from "../models/Keep.js";
+import { Keep } from "../models/Keep";
+import { KeepInVault } from "../models/KeepInVault";
 import { keepsService } from "../services/KeepsService";
 import Pop from "../utils/Pop";
 
 export default {
   props: {
-    keep: { type: Keep, required: true }
+    keep: { type: Keep },
+    keepInVault: { type: KeepInVault }
   },
   setup(props) {
     return {
       account: computed(() => AppState.account),
       async setActiveKeep() {
-        await keepsService.setActiveKeep(props.keep.id)
+        try {
+          if(props.keep) {
+            await keepsService.setActiveKeep(props.keep)
+          } else {
+            await keepsService.setActiveKeep(props.keepInVault)
+          }
+        }
+        catch(error) {
+          Pop.error(error.message, "[setActiveKeep]")
+        }
       },
       openModal() {
         this.setActiveKeep()
@@ -41,9 +55,11 @@ export default {
           if (!yes) {
             return
           }
+          await keepsService.deleteKeep(props.keep.id)
+          Pop.toast(`${props.keep.name} has been deleted.`)
         }
-        catch(error) {
-          Pop.error(error.message, "[function]")
+        catch (error) {
+          Pop.error(error.message, "[deleteKeep]")
         }
       }
     };
@@ -97,7 +113,7 @@ img {
   .keep-card {
     transition: 0.15s linear;
   }
-  
+
   .keep-card-wrapper:hover {
     transform: scale(1.03);
     filter: brightness(0.85);

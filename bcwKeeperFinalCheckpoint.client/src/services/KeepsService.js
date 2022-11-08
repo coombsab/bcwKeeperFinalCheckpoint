@@ -10,13 +10,16 @@ class KeepsService {
     AppState.keeps = res.data.map(data => new Keep(data))
   }
 
-  async setActiveKeep(keepId) {
+  async setActiveKeep(keep) {
     AppState.activeKeep = null
-    const res = await api.get(`api/keeps/${keepId}`)
-    let keep = new Keep(res.data)
-    AppState.activeKeep = keep
-    let keepIndex = AppState.keeps.findIndex(k => k.id === keep.id)
-    AppState.keeps.splice(keepIndex, 1, keep)
+    const res = await api.get(`api/keeps/${keep.id}`)
+    if(keep.vaultKeepId) {
+      res.data.vaultKeepId = keep.vaultKeepId
+      AppState.activeKeep = new KeepInVault(res.data)
+    } else {
+      AppState.activeKeep = new Keep(res.data)
+    }
+
   }
 
   async getMyKeepsById(profileId) {
@@ -35,6 +38,13 @@ class KeepsService {
     AppState.keepsInVault = []
     const res = await api.get(`api/vaults/${vaultId}/keeps`)
     AppState.keepsInVault = res.data.map(data => new KeepInVault(data))
+  }
+
+  async deleteKeep(keepId) {
+    const res = await api.delete(`api/keeps/${keepId}`)
+    AppState.keeps = AppState.keeps.filter(keep => keep.id !== keepId)
+    AppState.myKeeps = AppState.myKeeps.filter(keep => keep.id !== keepId)
+    AppState.keepsInVault = AppState.keepsInVault.filter(keep => keep.id !== keepId)
   }
 }
 
