@@ -6,4 +6,5 @@ public class Profile : DbItem<string>
   public string Picture { get; set; }
   public string Bio { get; set; }
   public string Hobbies { get; set; }
+  public string CoverImg { get; set; }
 }

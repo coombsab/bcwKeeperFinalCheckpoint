@@ -9,7 +9,11 @@ public class ProfilesService {
   }
 
   public Profile GetUserProfile(string profileId) {
-    return _profilesRepository.GetUserProfile(profileId);
+    Profile profile = _profilesRepository.GetUserProfile(profileId);
+    if (profile == null) {
+      throw new Exception("Could not find profile likely due to an invalid ID.");
+    }
+    return profile;
   }
 
   public List<Keep> GetUserKeeps(string profileId) {

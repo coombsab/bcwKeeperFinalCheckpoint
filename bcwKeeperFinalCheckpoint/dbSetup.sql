@@ -13,6 +13,7 @@ CREATE TABLE
         hobbies MEDIUMTEXT COMMENT 'User Hobbies'
     ) default charset utf8 COMMENT '';
 
+
 CREATE TABLE
     IF NOT EXISTS keeps (
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'Primary Key',

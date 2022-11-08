@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="createKeep()">
+  <form @submit.prevent="editKeep()">
     <div class="form-floating mb-3">
       <input type="text" class="form-control" name="keepName" id="keepName" placeholder="Name" required v-model="editable.name">
       <label for="keepName">Name</label>
@@ -40,12 +40,12 @@ export default {
 
     return {
       editable,
-      async createKeep() {
+      async editKeep() {
         try {
           console.log("Creating a keep, whee")
         }
         catch (error) {
-          Pop.error(error.message, "[createKeep]")
+          Pop.error(error.message, "[editKeep]")
         }
       }
     }

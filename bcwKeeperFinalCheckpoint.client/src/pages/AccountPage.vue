@@ -1,33 +1,58 @@
 <template>
   <section class="account text-center">
-    <h1>Welcome {{ account.name }}</h1>
-    <img class="rounded" :src="account.picture" alt="" />
-    <p>{{ account.email }}</p>
+    <ProfileCard :profile="profile" />
   </section>
-  <h1>Vaults</h1>
+  <div class="p-3">
+    <h1>Vaults</h1>
+  </div>
   <section class="vaults gap-3">
     <VaultCard v-for="v in myVaults" :key="v.id" :vault="v" />
   </section>
-  <h1>Keeps</h1>
+  <div class="p-3">
+    <h1>Keeps</h1>
+  </div>
   <section class="keeps p-3">
     <KeepCard v-for="k in myKeeps" :key="k.id" :keep="k" />
   </section>
 </template>
 
 <script>
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, watchEffect } from 'vue'
 import { AppState } from '../AppState'
 import KeepCard from "../components/KeepCard.vue"
+import ProfileCard from "../components/ProfileCard.vue"
 import VaultCard from "../components/VaultCard.vue"
+import { accountService } from "../services/AccountService"
+import Pop from "../utils/Pop"
 export default {
   setup() {
+    async function setActiveProfile() {
+      try {
+        await accountService.getProfile(AppState.account.id)
+      }
+      catch(error) {
+        Pop.error(error.message, "[setActiveProfile]")
+      }
+    }
+
+    onMounted(() => {
+      setActiveProfile()
+    })
+
+    // watchEffect(() => {
+    //   if (AppState.user.isAuthenticated) {
+    //     setActiveProfile()
+    //   }
+    // })
+
     return {
       account: computed(() => AppState.account),
+      profile: computed(() => AppState.activeProfile),
       myVaults: computed(() => AppState.myVaults),
       myKeeps: computed(() => AppState.myKeeps)
     };
   },
-  components: { KeepCard, VaultCard }
+  components: { KeepCard, VaultCard, ProfileCard }
 }
 </script>
 

@@ -68,16 +68,15 @@ export default {
       setActiveVault()
     })
 
-    //Grabs info again once authenticated
     // watchEffect(() => {
     //   if (AppState.user.isAuthenticated) {
-    //     getKeepsInVault()
-    //     setActiveVault()
+    //       getKeepsInVault()
+    //       setActiveVault()
     //   }
     // })
 
     // watchEffect(() => {
-    //   if (AppState.activeVault?.isPrivate && AppState.activeVault?.creatorId !== AppState.account?.id) {
+    //   if (AppState.activeVault?.isPrivate && AppState.activeVault?.creatorId !== AppState.account.id) {
     //     router.push({ name: 'Home' })
     //     Pop.toast("That vault is private and is not yours")
     //     AppState.activeVault = null

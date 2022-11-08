@@ -12,11 +12,14 @@
   <FormModal :title="'Add your vault'" id="createVaultModal">
     <CreateVaultForm />
   </FormModal>
-  <FormModal :title="'Add your keep'" id="editKeepModal">
+  <FormModal :title="'Edit your keep'" id="editKeepModal">
     <EditKeepForm />
   </FormModal>
-  <FormModal :title="'Add your vault'" id="editVaultModal">
+  <FormModal :title="'Edit your vault'" id="editVaultModal">
     <EditVaultForm />
+  </FormModal>
+  <FormModal :title="'Edit your profile'" id="editProfileModal">
+    <EditProfileForm />
   </FormModal>
 </template>
 
@@ -26,6 +29,7 @@ import { AppState } from './AppState'
 import CreateKeepForm from "./components/CreateKeepForm.vue"
 import CreateVaultForm from "./components/CreateVaultForm.vue"
 import EditKeepForm from "./components/EditKeepForm.vue"
+import EditProfileForm from "./components/EditProfileForm.vue"
 import EditVaultForm from "./components/EditVaultForm.vue"
 import FormModal from "./components/FormModal.vue"
 import KeepDetailsModal from "./components/KeepDetailsModal.vue"
@@ -37,7 +41,7 @@ export default {
       appState: computed(() => AppState)
     }
   },
-  components: { Navbar, KeepDetailsModal, FormModal, CreateKeepForm, CreateVaultForm, EditKeepForm, EditVaultForm }
+  components: { Navbar, KeepDetailsModal, FormModal, CreateKeepForm, CreateVaultForm, EditKeepForm, EditVaultForm, EditProfileForm }
 }
 </script>
 <style lang="scss">
