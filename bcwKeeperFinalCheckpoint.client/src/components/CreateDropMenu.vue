@@ -1,13 +1,13 @@
 <template>
   <div class="dropdown sm-hidden z-1">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="createDropDown" data-bs-toggle="dropdown"
+    <button class="btn dropdown-toggle" type="button" id="createDropDown" data-bs-toggle="dropdown"
       aria-haspopup="true" aria-expanded="false">
       Create
     </button>
     <div class="dropdown-menu" aria-labelledby="createDropDown">
       <div class="d-flex flex-column">
-        <button class="btn" @click="createKeep()">New Keep</button>
-        <button class="btn" @click="createVault()">New Vault</button>
+        <button class="btn"  data-bs-toggle="modal" data-bs-target="#createKeepModal">New Keep</button>
+        <button class="btn"  data-bs-toggle="modal" data-bs-target="#createVaultModal">New Vault</button>
       </div>
     </div>
   </div>
@@ -18,8 +18,8 @@
     </button>
     <div class="dropdown-menu" aria-labelledby="createDropUp">
       <div class="d-flex flex-column">
-        <button class="btn" @click="createKeep()">New Keep</button>
-        <button class="btn" @click="createVault()">New Vault</button>
+        <button class="btn"  data-bs-toggle="modal" data-bs-target="#createKeepModal">New Keep</button>
+        <button class="btn"  data-bs-toggle="modal" data-bs-target="#createVaultModal">New Vault</button>
       </div>
     </div>
   </div>

@@ -13,8 +13,8 @@
                 <img src="../assets/img/dots.png" alt="" class="selectable">
                 </button>
             <div class="dropdown-menu text-center" aria-labelledby="vaultOptions">
-              <button class="dropdown-item">Edit</button>
-              <button class="dropdown-item">Delete</button>
+              <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editVaultModal">Edit</button>
+              <button class="dropdown-item" @click="deleteVault()">Delete</button>
             </div>
           </div>
         </div>
@@ -47,7 +47,7 @@ export default {
           await keepsService.getKeepsInVault(route.params.vaultId)
         }
         catch(error) {
-          Pop.error(error.message, "[function]")
+          Pop.error(error.message, "[getKeepsInVault]")
         }
       }
 
@@ -56,7 +56,7 @@ export default {
           await vaultsService.setActiveVault(route.params.vaultId)
         }
         catch(error) {
-          Pop.error(error.message, "[function]")
+          Pop.error(error.message, "[setActiveVault]")
         }
       }
 
@@ -68,7 +68,18 @@ export default {
         return {
             route,
             keeps: computed(() => AppState.keepsInVault),
-            vault: computed(() => AppState.activeVault)
+            vault: computed(() => AppState.activeVault),
+            async deleteVault() {
+              try {
+                const yes = await Pop.confirm(`Do you want to delete ${this.vault.name}?`)
+                if (!yes) {
+                  return
+                }
+              }
+              catch(error) {
+                Pop.error(error.message, "[deleteVault]")
+              }
+            }
         };
     },
     components: { KeepCard }

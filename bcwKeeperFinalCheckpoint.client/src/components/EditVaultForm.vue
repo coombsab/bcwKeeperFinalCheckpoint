@@ -20,12 +20,18 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, watchEffect } from "vue";
+import { AppState } from "../AppState";
 import Pop from "../utils/Pop";
 
 export default {
   setup() {
     const editable = ref({})
+
+    watchEffect(() => {
+      editable.value = {...AppState.activeVault}
+    })
+    
     return {
       editable,
       async createVault() {

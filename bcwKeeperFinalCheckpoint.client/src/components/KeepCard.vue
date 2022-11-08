@@ -7,12 +7,16 @@
     <router-link :to="{ name: 'Profile', params: { profileId: keep.creatorId } }">
       <img :src="keep.creator.picture" :alt="keep.creator.name" :title="keep.creator.name" class="profile-img selectable m-3">
     </router-link>
+    <i class="mdi mdi-close on-hover selectable delete-icon text-visible" title="Delete Keep" @click="deleteKeep()" v-if="keep.creatorId === account.id"></i>
   </section>
 </template>
 
 <script>
+import { computed } from "@vue/reactivity";
+import { AppState } from "../AppState";
 import { Keep } from "../models/Keep.js";
 import { keepsService } from "../services/KeepsService";
+import Pop from "../utils/Pop";
 
 export default {
   props: {
@@ -20,6 +24,7 @@ export default {
   },
   setup(props) {
     return {
+      account: computed(() => AppState.account),
       async setActiveKeep() {
         await keepsService.setActiveKeep(props.keep.id)
       },
@@ -29,6 +34,17 @@ export default {
         let body = document.querySelector("body")
         body.style.overflow = "hidden"
         modal.style.display = "block"
+      },
+      async deleteKeep() {
+        try {
+          const yes = await Pop.confirm(`Do you want to delete ${props.keep.name}?`)
+          if (!yes) {
+            return
+          }
+        }
+        catch(error) {
+          Pop.error(error.message, "[function]")
+        }
       }
     };
   },
@@ -50,6 +66,12 @@ export default {
 
 .keep-card-wrapper:hover {
   cursor: pointer;
+}
+
+.delete-icon {
+  position: absolute;
+  right: 2%;
+  top: 2%;
 }
 
 img {

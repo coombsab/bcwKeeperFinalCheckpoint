@@ -23,16 +23,11 @@
               </div>
               <div class="d-flex flex-wrap justify-content-between align-items-center w-100"
                 id="keepDetailsModalContent">
-                <div class="d-flex gap-2 align-items-center" v-if="myVaults.length > 0">
-                  <select name="selectVault" id="selectVault" v-model="editable.vaultId" placeholder="Select a Vault">
-                    <option v-for="v in myVaults" :value="v.id">{{ v.name }}</option>
-                  </select>
-                  <button class="btn">save</button>
-                </div>
-                <div v-else><span>You have no vaults.</span></div>
+                <KeepDetailsDropMenu :keep="keep" v-if="route.name !== 'Vault'" />
+                <KeepDetailsRemove :keep="keep" v-else />
                 <div class="d-flex gap-2 align-items-center">
-                  <img :src="keep?.img" :alt="keep?.name" class="profile-img selectable" @click="goToProfile()">
-                  <span>{{ keep?.name }}</span>
+                  <img :src="keep?.creator.picture" :alt="keep?.creator.name" class="profile-img selectable" @click="goToProfile()">
+                  <span>{{ keep?.creator.name }}</span>
                 </div>
               </div>
             </div>
@@ -47,48 +42,49 @@
 <script>
 import { computed } from "@vue/reactivity";
 import { onMounted, ref } from "vue";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { AppState } from "../AppState";
+import KeepDetailsDropMenu from "./KeepDetailsDropMenu.vue";
+import KeepDetailsRemove from "./KeepDetailsRemove.vue";
 
 export default {
-  setup() {
-    const editable = ref({})
-    const router = useRouter()
+    setup() {
+        const router = useRouter();
+        const route = useRoute();
 
-    function setup() {
-      let modalBg = document.getElementById("keepDetailsModal")
-      let modal = document.getElementById("keepDetailsModalContent")
-      modalBg.addEventListener("click", closeModal)
-      modal.addEventListener("click", modalClick)
-    }
-    function modalClick(event) {
-      event.preventDefault();
-      event.stopPropagation();
-      event.stopImmediatePropagation();
-      return false;
-    }
-
-    function closeModal() {
-      let modal = document.getElementById("keepDetailsModal")
-      let body = document.querySelector("body")
-      modal.style.display = "none"
-      body.style.overflow = "auto"
-    }
-
-    onMounted(() => {
-      setup()
-    })
-    return {
-      editable,
-      router,
-      keep: computed(() => AppState.activeKeep),
-      myVaults: computed(() => AppState.myVaults),
-      goToProfile() {
-        router.push({ name: "Profile", params: { profileId: this.keep.creatorId }})
-        document.getElementById("keepDetailsModal").style.display = "none"
-      }
-    }
-  }
+        function setup() {
+            let modalBg = document.getElementById("keepDetailsModal");
+            let modal = document.getElementById("keepDetailsModalContent");
+            modalBg.addEventListener("click", closeModal);
+            modal.addEventListener("click", modalClick);
+        }
+        function modalClick(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+            return false;
+        }
+        function closeModal() {
+            let modal = document.getElementById("keepDetailsModal");
+            let body = document.querySelector("body");
+            modal.style.display = "none";
+            body.style.overflow = "auto";
+        }
+        onMounted(() => {
+            setup();
+        });
+        return {
+            router,
+            route,
+            keep: computed(() => AppState.activeKeep),
+            myVaults: computed(() => AppState.myVaults),
+            goToProfile() {
+                router.push({ name: "Profile", params: { profileId: this.keep.creatorId } });
+                document.getElementById("keepDetailsModal").style.display = "none";
+            }
+        };
+    },
+    components: { KeepDetailsDropMenu, KeepDetailsRemove }
 }
 </script>
 
@@ -100,7 +96,7 @@ export default {
   left: 0;
   height: 100vh;
   width: 100vw;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.75);
   z-index: 2000;
 }
 

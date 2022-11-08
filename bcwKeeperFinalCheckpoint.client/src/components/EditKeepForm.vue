@@ -27,11 +27,17 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, watchEffect } from "vue";
+import { AppState } from "../AppState";
 
 export default {
   setup() {
     const editable = ref({})
+
+    watchEffect(() => {
+      editable.value = {...AppState.activeKeep}
+    })
+
     return {
       editable,
       async createKeep() {
