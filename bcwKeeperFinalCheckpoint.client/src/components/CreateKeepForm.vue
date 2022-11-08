@@ -9,7 +9,7 @@
       <label for="keepImg">Image URL</label>
     </div>
     <div class="form-floating">
-      <input type="url" class="form-control" name="keepTags" id="keepTags" placeholder="Add Tags" required v-model="editable.tags">
+      <input type="text" class="form-control" name="keepTags" id="keepTags" placeholder="Add Tags" required v-model="editable.tags">
       <label for="keepTags">Add Tags</label>
     </div>
     <div class="mb-3 ps-2">
@@ -27,7 +27,10 @@
 </template>
 
 <script>
+import { Modal } from "bootstrap";
 import { ref } from "vue";
+import { keepsService } from "../services/KeepsService";
+import Pop from "../utils/Pop";
 
 export default {
   setup() {
@@ -36,7 +39,10 @@ export default {
       editable,
       async createKeep() {
         try {
-          console.log("Creating a keep, whee")
+          await keepsService.createKeep(editable.value)
+          Modal.getOrCreateInstance("#createKeepModal").hide()
+          Pop.toast(`Created ${editable.value.name}`)
+          editable.value = {}
         }
         catch (error) {
           Pop.error(error.message, "[createKeep]")

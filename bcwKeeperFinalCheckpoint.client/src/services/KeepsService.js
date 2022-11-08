@@ -46,6 +46,12 @@ class KeepsService {
     AppState.myKeeps = AppState.myKeeps.filter(keep => keep.id !== keepId)
     AppState.keepsInVault = AppState.keepsInVault.filter(keep => keep.id !== keepId)
   }
+
+  async createKeep(keepData) {
+    const res = await api.post("api/keeps", keepData)
+    AppState.keeps.push(new Keep(res.data))
+    AppState.myKeeps.push(new Keep(res.data))
+  }
 }
 
 export const keepsService = new KeepsService();

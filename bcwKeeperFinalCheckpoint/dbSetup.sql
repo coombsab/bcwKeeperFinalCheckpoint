@@ -44,9 +44,7 @@ CREATE TABLE
     ) default charset utf8 COMMENT '';
 
 ALTER TABLE vaults
-ADD
-    COLUMN img MEDIUMTEXT NOT NULL COMMENT 'Image of vault',
-    DROP COLUMN coverImg;
+MODIFY COLUMN description MEDIUMTEXT COMMENT 'Description of vault';
 
 CREATE TABLE
     IF NOT EXISTS vaultKeeps (

@@ -29,11 +29,13 @@ export default {
       async saveKeepToVault() {
         try {
           await vaultKeepsService.saveKeepToVault(this.editable.vaultId, props.keep.id)
-          const modal = document.getElementById("keepDetailsModal")
-          const body = document.querySelector("body")
-          modal.style.display = "none"
-          body.style.overflow = "auto"
+          // For closing modal, but not sure if I want this behavior
+          // const modal = document.getElementById("keepDetailsModal")
+          // const body = document.querySelector("body")
+          // modal.style.display = "none"
+          // body.style.overflow = "auto"
           Pop.toast(`Saved ${props.keep.name} to vault.`)
+          editable.value = {}
         }
         catch (error) {
           Pop.error(error.message, "[saveKeepToVault]")

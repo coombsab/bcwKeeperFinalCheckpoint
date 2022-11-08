@@ -11,7 +11,7 @@
     <div class="text-end">
       <span>Private vaults can only be seen by you</span>
       <div class="d-flex gap-2 align-items-center justify-content-end">
-        <input type="checkbox" v-model="editable.isPrivate">
+        <input type="checkbox" v-model="editable.isPrivate" default="false">
         <span>Make Vault Private?</span>
       </div>
       <button class="btn btn-dark px-5 py-1" type="submit">Create Vault</button>
@@ -20,20 +20,25 @@
 </template>
 
 <script>
+import { Modal } from "bootstrap";
 import { ref } from "vue";
+import { vaultsService } from "../services/VaultsService";
 import Pop from "../utils/Pop";
 
 export default {
   setup() {
-    const editable = ref({})
+    const editable = ref({ isPrivate: false })
     return {
       editable,
       async createVault() {
         try {
-          console.log("Creating a keep, whee")
+          await vaultsService.createVault(editable.value)
+          Modal.getOrCreateInstance("#createVaultModal").hide()
+          Pop.toast(`Created ${editable.value.name}`)
+          editable.value = { isPrivate: false }
         }
         catch(error) {
-          Pop.error(error.message, "[createKeep]")
+          Pop.error(error.message, "[createVault]")
         }
       }
     }
