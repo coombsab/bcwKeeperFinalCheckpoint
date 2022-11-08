@@ -34,6 +34,7 @@ import { useRoute } from "vue-router";
 import { AppState } from "../AppState";
 import { Account } from "../models/Account";
 import { Profile } from "../models/Profile";
+import Pop from "../utils/Pop";
 
 export default {
   props: {
@@ -48,6 +49,19 @@ export default {
       myKeeps: computed(() => AppState.myKeeps),
       vaults: computed(() => AppState.vaults),
       keeps: computed(() => AppState.keeps.filter(keep => !keep.isPrivate)),
+      async deleteAccount() {
+        try {
+          const yes = await Pop.confirm("Are you sure you want to delete your account?")
+          if (!yes) {
+            return
+          }
+
+          Pop.toast("Your account has been deleted!")
+        }
+        catch(error) {
+          Pop.error(error.message, "[deleteAccount]")
+        }
+      }
     }
   }
 }
