@@ -1,19 +1,23 @@
 <template>
-  <section class="profile">
+  <section class="profile" v-if="profile">
     <ProfileCard :profile="profile" />
+    <div class="p-3">
+      <h1>Vaults</h1>
+    </div>
+    <section class="vaults gap-3">
+      <VaultCard v-for="v in vaults" :key="v.id" :vault="v" />
+    </section>
+    <div class="p-3">
+      <h1>Keeps</h1>
+    </div>
+    <section class="keeps p-3">
+      <KeepCard v-for="k in keeps" :key="k.id" :keep="k" />
+    </section>
   </section>
-  <div class="p-3">
-    <h1>Vaults</h1>
+  <div class="d-flex flex-column h-80 pos-relative" v-else>
+    <span class="fadeIn m-auto fs-1 fw-700">Could not find this profile!</span>
+    <Spinner />
   </div>
-  <section class="vaults gap-3">
-    <VaultCard v-for="v in vaults" :key="v.id" :vault="v" />
-  </section>
-  <div class="p-3">
-    <h1>Keeps</h1>
-  </div>
-  <section class="keeps p-3">
-    <KeepCard v-for="k in keeps" :key="k.id" :keep="k" />
-  </section>
 </template>
 
 <script>

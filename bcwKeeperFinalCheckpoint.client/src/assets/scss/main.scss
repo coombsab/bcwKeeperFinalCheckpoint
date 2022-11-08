@@ -4,7 +4,7 @@
 @import "./_utilities.scss";
 @import "./loaders.scss";
 
-body{
+body {
   overscroll-behavior: none;
   font-family: 'Marko One', serif;
 }
@@ -17,7 +17,7 @@ body{
 }
 
 main {
-  flex-grow: 1;
+  height: 100vh;
 }
 
 a {
@@ -31,6 +31,7 @@ select {
     &:valid {
       border: 1px solid $success;
     }
+
     &:invalid {
       border: 1px solid $danger;
     }
@@ -60,6 +61,36 @@ form:invalid button[type="submit"] {
   font-weight: 700;
   letter-spacing: 0.035rem;
 
+}
+
+.fw-700 {
+  font-weight: 700;
+}
+
+.pos-relative {
+  position: relative;
+}
+
+.h-80 {
+  height: 80vh;
+}
+
+.fadeIn {
+  animation: fadeIn ease 11s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  75% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 

@@ -1,8 +1,9 @@
 <template>
-  <section class="vault container-fluid">
-    <div class="row p-3 d-flex justify-content-center">
-      <div class="col-md-5">
-        <div class="vault-card text-visible p-3 d-flex flex-column align-items-center justify-content-end"
+  <section v-if="vault">
+    <section class="vault container-fluid">
+      <div class="row p-3 d-flex justify-content-center">
+        <div class="col-md-5">
+          <div class="vault-card text-visible p-3 d-flex flex-column align-items-center justify-content-end"
           :style="{ backgroundImage: `url(${vault?.img})` }">
           <h1>{{ vault?.name }}</h1>
           <span>by {{ vault?.creator.name }}</span>
@@ -10,7 +11,7 @@
         <div class="w-100 d-flex justify-content-end px-3">
           <div class="dropdown open" v-if="vault?.creatorId === account?.id">
             <button class="btn p-0" type="button" id="vaultOptions" data-bs-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">
+            aria-expanded="false">
               <img src="../assets/img/dots.png" alt="" class="selectable">
             </button>
             <div class="dropdown-menu text-center" aria-labelledby="vaultOptions">
@@ -20,13 +21,17 @@
           </div>
         </div>
         <div class="d-flex justify-content-center mt-1"><span class="keeps-count px-2 py-2">{{ keepsInVault.length }}
-            Keeps</span></div>
+          Keeps</span></div>
+        </div>
       </div>
+    </section>
+    <div class="keeps p-3">
+      <KeepCard v-for="k in keepsInVault" :key="k.vaultKeepId" :keepInVault="k" />
     </div>
-
   </section>
-  <div class="keeps p-3">
-    <KeepCard v-for="k in keepsInVault" :key="k.vaultKeepId" :keepInVault="k" />
+  <div class="d-flex flex-column h-80 pos-relative" v-else>
+    <span class="fadeIn m-auto fs-1 fw-700">Could not find this vault!</span>
+    <Spinner />
   </div>
 </template>
 
