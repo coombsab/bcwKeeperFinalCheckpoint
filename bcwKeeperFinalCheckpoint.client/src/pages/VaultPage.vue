@@ -55,6 +55,7 @@ export default {
         await keepsService.getKeepsInVault(route.params.vaultId)
       }
       catch (error) {
+        router.push({ name: 'Home' })
         Pop.error(error.message, "[getKeepsInVault]")
       }
     }

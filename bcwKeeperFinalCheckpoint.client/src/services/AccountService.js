@@ -17,7 +17,10 @@ class AccountService {
   }
 
   async editProfile(profileData) {
-    
+    console.log("editing profile")
+    const res = await api.put("/account", profileData)
+    console.log("profile res.data", res.data)
+    AppState.activeProfile = new Profile(res.data)
   }
 
   async getProfile(profileId) {
@@ -37,14 +40,6 @@ class AccountService {
     AppState.keeps = []
     const res = await api.get(`api/profiles/${profileId}/keeps`)
     AppState.keeps = res.data.map(data => new Keep(data))
-  }
-
-  async editProfile(profileData) {
-    console.log("editing profile")
-    const res = await api.put("/account", profileData)
-    console.log("profile res.data", res.data)
-    AppState.activeProfile = new Profile(res.data)
-
   }
 }
 
