@@ -54,5 +54,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+textarea {
+  height: 10.8rem !important;
+}
 </style>

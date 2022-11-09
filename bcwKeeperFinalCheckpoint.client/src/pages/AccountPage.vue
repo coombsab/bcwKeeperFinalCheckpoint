@@ -1,8 +1,11 @@
 <template>
   <section class="account text-center" v-if="account.id">
     <ProfileCard :account="account" />
-    <div class="p-3">
+    <div class="p-3" v-if="myVaults.length > 0">
       <h1>Vaults</h1>
+    </div>
+    <div class="mb-3" v-else>
+      <h3>You have no vaults.  Please create some!</h3>
     </div>
     <section class="vaults gap-3">
     </section>
@@ -13,8 +16,11 @@
         </div>
       </div>
     </section>
-    <div class="p-3">
+    <div class="p-3" v-if="myKeeps.length > 0">
       <h1>Keeps</h1>
+    </div>
+    <div v-else>
+      <h3>You have no keeps.  Please create some!</h3>
     </div>
     <section class="keeps p-3">
       <KeepCard v-for="k in myKeeps" :key="k.id" :keep="k" />

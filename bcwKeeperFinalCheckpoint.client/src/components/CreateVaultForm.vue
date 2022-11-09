@@ -47,7 +47,4 @@ export default {
 </script>
 
 <style scoped lang="scss">
-#keepDescription{ 
-  height: 10.8rem;
-}
 </style>
