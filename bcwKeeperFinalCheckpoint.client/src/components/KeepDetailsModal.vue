@@ -83,6 +83,7 @@ export default {
       goToProfile() {
         router.push({ name: "Profile", params: { profileId: this.keep.creatorId } });
         document.getElementById("keepDetailsModal").style.display = "none";
+        document.querySelector("body").style.overflow = "auto";
       },
     };
   },
