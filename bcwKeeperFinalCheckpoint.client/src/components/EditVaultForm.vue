@@ -1,11 +1,11 @@
 <template>
   <form @submit.prevent="editVault()">
     <div class="form-floating mb-3">
-      <input type="text" class="form-control" name="vaultName" id="editVaultName" placeholder="Name" required v-model="editable.name">
+      <input type="text" class="form-control" name="vaultName" id="editVaultName" placeholder="Name" minlength="1"  v-model="editable.name" onfocus="select()">
       <label for="editVaultName">Name</label>
     </div>
     <div class="form-floating mb-3">
-      <input type="url" class="form-control" name="vaultImg" id="editVaultImg" placeholder="Image URL" required v-model="editable.img">
+      <input type="url" class="form-control" name="vaultImg" id="editVaultImg" placeholder="Image URL"  v-model="editable.img" onfocus="select()">
       <label for="editVaultImg">Image URL</label>
     </div>
     <div class="text-end">

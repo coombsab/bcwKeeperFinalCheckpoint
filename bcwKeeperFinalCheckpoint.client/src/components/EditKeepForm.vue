@@ -1,15 +1,15 @@
 <template>
   <form @submit.prevent="editKeep()">
     <div class="form-floating mb-3">
-      <input type="text" class="form-control" name="keepName" id="keepName" placeholder="Name" required v-model="editable.name">
+      <input type="text" class="form-control" name="keepName" id="keepName" placeholder="Name" required v-model="editable.name" onfocus="select()">
       <label for="keepName">Name</label>
     </div>
     <div class="form-floating mb-3">
-      <input type="url" class="form-control" name="keepImg" id="keepImg" placeholder="Image URL" required v-model="editable.img">
+      <input type="url" class="form-control" name="keepImg" id="keepImg" placeholder="Image URL" required v-model="editable.img" onfocus="select()">
       <label for="keepImg">Image URL</label>
     </div>
     <div class="form-floating">
-      <input type="url" class="form-control" name="keepTags" id="keepTags" placeholder="Add Tags" required v-model="editable.tags">
+      <input type="url" class="form-control" name="keepTags" id="keepTags" placeholder="Add Tags" required v-model="editable.tags" onfocus="select()">
       <label for="keepTags">Add Tags</label>
     </div>
     <div class="mb-3 ps-2">
@@ -17,7 +17,7 @@
     </div>
     <div class="form-floating mb-3">
       <textarea class="form-control" name="keepDescription" id="keepDescription"
-        placeholder="Keep Description" required v-model="editable.description"></textarea>
+        placeholder="Keep Description" required v-model="editable.description" onfocus="select()"></textarea>
       <label for="keepDescription">Keep Description</label>
     </div>
     <div class="text-end">

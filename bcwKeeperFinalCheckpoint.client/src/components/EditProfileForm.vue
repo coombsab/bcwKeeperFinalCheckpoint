@@ -1,20 +1,20 @@
 <template>
   <form @submit.prevent="editProfile()">
     <div class="form-floating mb-3">
-      <input type="text" class="form-control" name="profileName" id="profileName" placeholder="Name" minlength="1" v-model="editable.name">
+      <input type="text" class="form-control" name="profileName" id="profileName" placeholder="Name" minlength="1" v-model="editable.name" onfocus="select()">
       <label for="profileName">Name</label>
     </div>
     <div class="form-floating mb-3">
-      <input type="url" class="form-control" name="profilePicture" id="profilePicture" placeholder="Image URL" v-model="editable.picture">
+      <input type="url" class="form-control" name="profilePicture" id="profilePicture" placeholder="Image URL" v-model="editable.picture" onfocus="select()">
       <label for="profilePicture">Image URL</label>
     </div>
     <div class="form-floating mb-3">
-      <input type="url" class="form-control" name="profileCoverImg" id="profileCoverImg" placeholder="Cover Image" v-model="editable.coverImg">
+      <input type="url" class="form-control" name="profileCoverImg" id="profileCoverImg" placeholder="Cover Image" v-model="editable.coverImg" onfocus="select()">
       <label for="profileCoverImg">Cover Image</label>
     </div>
     <div class="form-floating mb-3">
       <textarea class="form-control" name="profileDescription" id="profileBio"
-        placeholder="Bio" v-model="editable.bio"></textarea>
+        placeholder="Bio" v-model="editable.bio" onfocus="select()"></textarea>
       <label for="profileBio">Bio</label>
     </div>
     <div class="text-end">
