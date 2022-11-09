@@ -52,42 +52,18 @@ export default {
 
     async function getKeepsInVault() {
       try {
-        await keepsService.getKeepsInVault(route.params.vaultId)
         await vaultsService.setActiveVault(route.params.vaultId)
+        await keepsService.getKeepsInVault(route.params.vaultId)
       }
       catch (error) {
         router.push({ name: 'Home' })
-        Pop.error("Sorry, that vault is private and is not yours.", "[getKeepsInVault]" + error.message)
+        Pop.error("Sorry, you do not have access to that page.  It may be a private vault or due to an error.", "[getKeepsInVault]" + error.message)
       }
     }
 
-    // async function setActiveVault() {
-    //   try {
-    //   }
-    //   catch (error) {
-    //     Pop.error(error.message, "[setActiveVault]")
-    //   }
-    // }
-
     onMounted(() => {
       getKeepsInVault()
-      // setActiveVault()
     })
-
-    // watchEffect(() => {
-    //   if (AppState.user.isAuthenticated) {
-    //       getKeepsInVault()
-    //       setActiveVault()
-    //   }
-    // })
-
-    // watchEffect(() => {
-    //   if (AppState.activeVault?.isPrivate && AppState.activeVault?.creatorId !== AppState.account.id) {
-    //     router.push({ name: 'Home' })
-    //     Pop.toast("That vault is private and is not yours")
-    //     AppState.activeVault = null
-    //   }
-    // })
 
     return {
       route,
