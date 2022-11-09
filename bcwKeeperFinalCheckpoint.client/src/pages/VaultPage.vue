@@ -20,12 +20,14 @@
               </div>
             </div>
           </div>
-          <div class="d-flex justify-content-center mt-3"><span class="keeps-count fw-700 px-2 py-2">{{ keepsInVault.length }}
+          <div class="d-flex justify-content-center mt-3"><span class="keeps-count fw-700 px-2 py-2">{{
+              keepsInVault.length
+          }}
               Keeps</span></div>
         </div>
       </div>
     </section>
-    <div class="keeps p-3" v-if="keepsInVault.length > 0">
+    <div class="keeps p-3 h-80" v-if="keepsInVault.length > 0">
       <KeepCard v-for="k in keepsInVault" :key="k.vaultKeepId" :keepInVault="k" />
     </div>
     <div class="d-flex flex-column h-80" v-else>

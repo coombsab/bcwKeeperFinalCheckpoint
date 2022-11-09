@@ -1,5 +1,5 @@
 <template>
-  <section class="account text-center" v-if="account.id">
+  <section class="account text-center h-80" v-if="account.id">
     <ProfileCard :account="account" />
     <div class="p-3" v-if="myVaults.length > 0">
       <h1>Vaults</h1>

@@ -17,7 +17,7 @@ body {
 }
 
 main {
-  height: 100vh;
+  height: 100vh !important;
 }
 
 a {
@@ -71,8 +71,9 @@ form:invalid button[type="submit"] {
   position: relative;
 }
 
+// FIXME this is the ugly fix to make the mobile footer be at the bottom of the screen as it only becomes sticky after scrolled to/past... need elements on each page to simply take up 100% of the screen but my previous methods that worked have been failing
 .h-80 {
-  height: 80vh;
+  min-height: 60vh;
 }
 
 .fadeIn {

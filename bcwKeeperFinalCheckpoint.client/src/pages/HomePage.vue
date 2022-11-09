@@ -1,5 +1,5 @@
 <template>
-  <div class="home p-3" v-if="keeps.length > 0">
+  <div class="home p-3 h-80" v-if="keeps.length > 0">
     <KeepCard v-for="k in keeps" :key="k.id" :keep="k" />
   </div>
   <div class="d-flex flex-column h-80 pos-relative" v-else>
