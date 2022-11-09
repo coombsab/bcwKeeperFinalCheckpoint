@@ -1,6 +1,8 @@
 <template>
   <main class="d-flex flex-column">
-    <Navbar class="order-md-0 order-1" />
+    <div class="order-md-0 order-1 sticky-md-top sticky-bottom ">
+      <Navbar />
+    </div>
     <div class="order-md-1 order-0">
       <router-view />
     </div>

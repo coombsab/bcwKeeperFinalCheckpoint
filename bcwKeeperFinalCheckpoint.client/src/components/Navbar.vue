@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="navbar navbar-expand-lg bg-nav px-3 p-md-3 sticky-md-top sticky-bottom justify-content-between align-items-center">
+    class="navbar navbar-expand-lg bg-nav px-3 p-md-3 justify-content-between align-items-center">
     <div class="nav-wrapper d-flex justify-content-between align-items-center">
       <div class="d-flex justify-content-between align-items-center gap-5 order-3 order-md-0">
         <div class="sm-hidden z-1">
@@ -8,9 +8,13 @@
             <button class="btn">Home</button>
           </router-link>
         </div>
-        <CreateDropMenu class="order-2 order-md-1" v-if="user.isAuthenticated" />
+        <div class="order-2 order-md-1">
+          <CreateDropMenu v-if="user.isAuthenticated" />
+        </div>
       </div>
-      <Login class="order-3 z-1" />
+      <div class="order-3 z-1">
+        <Login />
+      </div>
       <div class="logo-wrapper d-flex align-items-center justify-content-center order-0 order-md-2">
         <router-link :to="{ name: 'Home' }" class="unselectable">
           <img alt="logo" src="../assets/img/Keepr-logo.png" height="75.53" />
