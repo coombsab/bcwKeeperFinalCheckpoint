@@ -42,7 +42,7 @@ export default {
       editable,
       async editKeep() {
         try {
-          console.log("Creating a keep, whee")
+          console.log("Editing a keep, whee")
         }
         catch (error) {
           Pop.error(error.message, "[editKeep]")

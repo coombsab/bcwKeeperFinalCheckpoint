@@ -1,4 +1,5 @@
 import { AppState } from "../AppState"
+import { Keep } from "../models/Keep"
 import { api } from "./AxiosService"
 
 class VaultKeepsService {
@@ -9,6 +10,9 @@ class VaultKeepsService {
 
   async saveKeepToVault(vaultId, keepId) {
     await api.post("api/vaultkeeps", { vaultId, keepId })
+    if (AppState.activeKeep) {
+      AppState.activeKeep.kept++
+    }
   }
 }
 

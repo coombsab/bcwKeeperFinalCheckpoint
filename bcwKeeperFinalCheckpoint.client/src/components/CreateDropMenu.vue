@@ -30,12 +30,7 @@ export default {
   setup() {
 
     return {
-      async createKeep() {
-        console.log("createKeep")
-      },
-      async createVault() {
-        console.log("createVault")
-      }
+
     }
   }
 }
