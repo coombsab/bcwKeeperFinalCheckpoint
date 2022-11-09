@@ -102,6 +102,7 @@ img {
 
 .profile-img {
   display: none;
+  filter: drop-shadow(0px 4.79889px 4.79889px rgba(0, 0, 0, 0.25));
 }
 
 .pos-relative {
