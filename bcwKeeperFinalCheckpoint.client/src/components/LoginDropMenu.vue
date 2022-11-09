@@ -27,6 +27,8 @@ import { AuthService } from "../services/AuthService";
 
 export default {
   setup() {
+
+    //REVIEW Look into these as a method to close popup by clicking outside element
     function hideOnClickOutside(element) {
       const outsideClickListener = event => {
         if (!element.contains(event.target) && isVisible(element)) { // or use: event.target.closest(selector) === null
@@ -43,7 +45,8 @@ export default {
     }
 
     const isVisible = elem => !!elem && !!(elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length);
-    // source (2018-03-11): https://github.com/jquery/jquery/blob/master/src/css/hiddenVisibleSelectors.js 
+    // source (2018-03-11): https://github.com/jquery/jquery/blob/master/src/css/hiddenVisibleSelectors.js
+
     return {
       user: computed(() => AppState.user),
       account: computed(() => AppState.account),

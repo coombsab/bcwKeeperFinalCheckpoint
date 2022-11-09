@@ -50,5 +50,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+button:hover {
+  color: blue;
+}
 </style>

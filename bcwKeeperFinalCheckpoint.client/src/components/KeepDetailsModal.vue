@@ -21,14 +21,27 @@
               <div class="">
                 <span>{{ keep?.description }}</span>
               </div>
-              <div class="d-flex flex-wrap justify-content-between align-items-center w-100"
-                id="keepDetailsModalContent">
-                <KeepDetailsRemove :keepInVault="keep" v-if="route.name === 'Vault' && vault?.creatorId === account?.id" />
-                <KeepDetailsDropMenu :keep="keep" v-else />
-                <div class="d-flex gap-2 align-items-center">
-                  <img :src="keep?.creator.picture" :alt="keep?.creator.name" class="profile-img selectable"
-                    @click="goToProfile()" title="Go to Profile Page">
-                  <span>{{ keep?.creator.name }}</span>
+              <div class="w-100" id="keepDetailsModalContent">
+                <div class="d-flex flex-wrap justify-content-between align-items-center w-100"
+                  v-if="user.isAuthenticated">
+                  <KeepDetailsRemove :keepInVault="keep"
+                    v-if="route.name === 'Vault' && vault?.creatorId === account?.id" />
+                  <KeepDetailsDropMenu :keep="keep" v-else />
+                  <div class="d-flex gap-2 align-items-center">
+                    <img :src="keep?.creator.picture" :alt="keep?.creator.name" class="profile-img selectable"
+                      @click="goToProfile()" title="Go to Profile Page">
+                    <span>{{ keep?.creator.name }}</span>
+                  </div>
+                </div>
+                <div class="d-flex flex-wrap justify-content-center align-items-center w-100" v-else>
+                  <KeepDetailsRemove :keepInVault="keep"
+                    v-if="route.name === 'Vault' && vault?.creatorId === account?.id" />
+                  <KeepDetailsDropMenu :keep="keep" v-else />
+                  <div class="d-flex gap-2 align-items-center">
+                    <img :src="keep?.creator.picture" :alt="keep?.creator.name" class="profile-img selectable"
+                      @click="goToProfile()" title="Go to Profile Page">
+                    <span>{{ keep?.creator.name }}</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -57,6 +70,7 @@ export default {
       let modal = document.getElementById("keepDetailsModalContent");
       modalBg.addEventListener("click", closeModal);
       modal.addEventListener("click", modalClick);
+
     }
     function modalClick(event) {
       event.preventDefault();
@@ -80,6 +94,7 @@ export default {
       // myVaults: computed(() => AppState.myVaults),
       vault: computed(() => AppState.activeVault),
       account: computed(() => AppState.account),
+      user: computed(() => AppState.user),
       goToProfile() {
         router.push({ name: "Profile", params: { profileId: this.keep.creatorId } });
         document.getElementById("keepDetailsModal").style.display = "none";
@@ -92,6 +107,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+// .keepDetailsModalContent {
+//   pointer-events: none;
+// }
+
 .modal-bg {
   display: none;
   position: fixed;
