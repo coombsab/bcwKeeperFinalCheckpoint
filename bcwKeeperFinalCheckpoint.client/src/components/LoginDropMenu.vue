@@ -47,8 +47,8 @@ export default {
     return {
       user: computed(() => AppState.user),
       account: computed(() => AppState.account),
-      async login() {
-        AuthService.loginWithPopup();
+      async logout() {
+        AuthService.logout();
       },
       toggleShow() {
         document.getElementById("loginDropMenu").classList.toggle("show");
