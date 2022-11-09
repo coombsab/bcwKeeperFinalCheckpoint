@@ -2,6 +2,7 @@ import { initialize } from '@bcwdev/auth0provider-client'
 import { AppState } from '../AppState'
 import { audience, clientId, domain } from '../env'
 import { router } from '../router'
+import Pop from "../utils/Pop"
 import { accountService } from './AccountService'
 import { api } from './AxiosService'
 import { keepsService } from "./KeepsService"
@@ -29,8 +30,14 @@ AuthService.on(AuthService.AUTH_EVENTS.AUTHENTICATED, async function() {
   await accountService.getAccount()
   socketService.authenticate(AuthService.bearer)
   // NOTE if there is something you want to do once the user is authenticated, place that here
-  vaultsService.getMyVaults()
-  keepsService.getMyKeepsById(AppState.account.id)
+  try {
+    vaultsService.getMyVaults()
+    keepsService.getMyKeepsById(AppState.account.id)
+    // accountService.getProfile(AppState.account.id)
+  }
+  catch(error) {
+    Pop.error(error.message, "[onAuthExtraFunctions]")
+  }
 })
 
 async function refreshAuthToken(config) {

@@ -46,5 +46,23 @@ public class AccountsRepository
     _db.Execute(sql, update);
     return update;
   }
+
+  public void Delete(String accountId)
+  {
+    string sql = @"
+      DELETE FROM accounts
+      WHERE id = @accountId;
+    ";
+    int rows = _db.Execute(sql, new { accountId });
+    if (rows < 1)
+    {
+      throw new Exception("Account was not deleted.");
+    }
+
+    if (rows > 1)
+    {
+      throw new Exception("Something went wrong with deleting the account.  Please contact your DBA.");
+    }
+  }
 }
 

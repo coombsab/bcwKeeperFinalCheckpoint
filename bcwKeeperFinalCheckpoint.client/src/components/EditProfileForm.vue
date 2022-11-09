@@ -26,6 +26,7 @@
 <script>
 import { Modal } from "bootstrap";
 import { ref, watchEffect } from "vue";
+import { useRoute } from "vue-router";
 import { AppState } from "../AppState";
 import { accountService } from "../services/AccountService";
 import Pop from "../utils/Pop";
@@ -33,17 +34,24 @@ import Pop from "../utils/Pop";
 export default {
   setup() {
     const editable = ref({})
+    const route = useRoute()
 
     watchEffect(() => {
-      editable.value = {...AppState.activeProfile}
+      if (route.name === "Profile") {
+        editable.value = {...AppState.activeProfile}
+      }
+      if (route.name === 'Account') {
+        editable.value = {...AppState.account}
+      }
+
     })
 
     return {
       editable,
+      route,
       async editProfile() {
         try {
-          console.log("Trying to edit profile")
-          await accountService.editProfile(editable.value)
+          await accountService.editProfile(editable.value, route.name)
           Modal.getOrCreateInstance("#editProfileModal").hide()
         }
         catch (error) {

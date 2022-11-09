@@ -1,5 +1,5 @@
 <template>
-  <section class="profile" v-if="profile">
+  <section class="profile text-center" v-if="profile">
     <ProfileCard :profile="profile" />
     <div class="p-3">
       <h1>Vaults</h1>

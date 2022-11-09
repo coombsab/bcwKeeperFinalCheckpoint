@@ -57,11 +57,13 @@ export default {
 
 .account-photo {
   height: 53.3px;
+  width: 53.3px;
 }
 
 @media screen and (min-width: 768px) {
   .account-photo {
     height: 64px;
+    width: 64px;
   }
 }
 </style>

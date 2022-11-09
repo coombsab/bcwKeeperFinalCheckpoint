@@ -2,6 +2,8 @@ namespace bcwKeeperFinalCheckpoint.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+[Authorize]
+
 public class AccountController : ControllerBase
 {
   private readonly AccountService _accountService;
@@ -18,7 +20,6 @@ public class AccountController : ControllerBase
   }
 
   [HttpGet]
-  [Authorize]
   public async Task<ActionResult<Account>> Get()
   {
     try
@@ -33,25 +34,41 @@ public class AccountController : ControllerBase
   }
 
   [HttpGet("vaults")]
-  [Authorize]
-  public async Task<ActionResult<List<Vault>>> GetMyVaults() {
-    try {
+  public async Task<ActionResult<List<Vault>>> GetMyVaults()
+  {
+    try
+    {
       Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
       List<Vault> vaults = _vaultsService.GetMyVaults(userInfo.Id);
       return Ok(vaults);
     }
-    catch(Exception e) {
+    catch (Exception e)
+    {
       return BadRequest(e.Message);
     }
   }
 
   [HttpPut]
-  [Authorize]
-  public async Task<ActionResult<Account>> UpdateAccount([FromBody] Account profileData) {
-    try {
+  public async Task<ActionResult<Account>> UpdateAccount([FromBody] Account profileData)
+  {
+    try
+    {
       Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
       Account profile = _accountService.Edit(profileData, userInfo.Email);
       return Ok(profile);
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
+
+  [HttpDelete("delete")]
+  public async Task<ActionResult<Account>> DeleteAccount() {
+    try {
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      _accountService.Delete(userInfo.Id);
+      return Ok(userInfo);
     }
     catch(Exception e) {
       return BadRequest(e.Message);

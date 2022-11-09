@@ -1,6 +1,6 @@
 <template>
-  <section class="account text-center" v-if="account">
-    <ProfileCard :profile="profile" />
+  <section class="account text-center" v-if="account.id">
+    <ProfileCard :account="account" />
     <div class="p-3">
       <h1>Vaults</h1>
     </div>
@@ -30,18 +30,18 @@ import { accountService } from "../services/AccountService"
 import Pop from "../utils/Pop"
 export default {
   setup() {
-    async function setActiveProfile() {
-      try {
-        await accountService.getProfile(AppState.account.id)
-      }
-      catch(error) {
-        Pop.error(error.message, "[setActiveProfile]")
-      }
-    }
+    // async function setActiveProfile() {
+    //   try {
+    //     await accountService.getProfile(AppState.account.id)
+    //   }
+    //   catch(error) {
+    //     Pop.error(error.message, "[setActiveProfile]")
+    //   }
+    // }
 
-    onMounted(() => {
-      setActiveProfile()
-    })
+    // onMounted(() => {
+    //   setActiveProfile()
+    // })
 
     // watchEffect(() => {
     //   if (AppState.user.isAuthenticated) {

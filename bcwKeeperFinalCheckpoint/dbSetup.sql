@@ -13,6 +13,9 @@ CREATE TABLE
         hobbies MEDIUMTEXT COMMENT 'User Hobbies'
     ) default charset utf8 COMMENT '';
 
+ALTER TABLE accounts
+MODIFY COLUMN picture MEDIUMTEXT COMMENT 'User Picture';
+
 
 CREATE TABLE
     IF NOT EXISTS keeps (

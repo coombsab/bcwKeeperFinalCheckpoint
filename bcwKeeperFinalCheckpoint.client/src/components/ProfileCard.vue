@@ -15,7 +15,6 @@
         </button>
         <div class="dropdown-menu text-center" aria-labelledby="profileOptions">
           <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit</button>
-          <button class="dropdown-item" @click="deleteAccount()">Delete</button>
         </div>
       </div>
     </div>
@@ -32,14 +31,14 @@
 import { computed } from "@vue/reactivity";
 import { useRoute } from "vue-router";
 import { AppState } from "../AppState";
-import { Account } from "../models/Account";
+import { accountService } from "../services/AccountService";
 import { Profile } from "../models/Profile";
 import Pop from "../utils/Pop";
 
 export default {
   props: {
     profile: { type: Profile },
-    account: { type: Account }
+    account: { type: Object }
   },
   setup(props) {
     const route = useRoute()
@@ -49,19 +48,6 @@ export default {
       myKeeps: computed(() => AppState.myKeeps),
       vaults: computed(() => AppState.vaults),
       keeps: computed(() => AppState.keeps.filter(keep => !keep.isPrivate)),
-      async deleteAccount() {
-        try {
-          const yes = await Pop.confirm("Are you sure you want to delete your account?")
-          if (!yes) {
-            return
-          }
-
-          Pop.toast("Your account has been deleted!")
-        }
-        catch(error) {
-          Pop.error(error.message, "[deleteAccount]")
-        }
-      }
     }
   }
 }

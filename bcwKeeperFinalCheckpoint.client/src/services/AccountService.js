@@ -11,16 +11,23 @@ class AccountService {
     try {
       const res = await api.get('/account')
       AppState.account = res.data
+      if (!AppState.account.coverImg) {
+        AppState.account.coverImg = "https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-1-scaled.png"
+      }
     } catch (err) {
       logger.error('HAVE YOU STARTED YOUR SERVER YET???', err)
     }
   }
 
-  async editProfile(profileData) {
-    console.log("editing profile")
+  async editProfile(profileData, routeName) {
     const res = await api.put("/account", profileData)
-    console.log("profile res.data", res.data)
-    AppState.activeProfile = new Profile(res.data)
+    if (routeName === "Profile") {
+      AppState.activeProfile = new Profile(res.data)
+    }
+
+    if (routeName === "Account") {
+      AppState.account = res.data
+    }
   }
 
   async getProfile(profileId) {
