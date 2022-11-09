@@ -4,29 +4,33 @@
       <div class="row p-3 d-flex justify-content-center">
         <div class="col-md-5">
           <div class="vault-card text-visible p-3 d-flex flex-column align-items-center justify-content-end"
-          :style="{ backgroundImage: `url(${vault?.img})` }">
-          <h1>{{ vault?.name }}</h1>
-          <span>by {{ vault?.creator.name }}</span>
-        </div>
-        <div class="w-100 d-flex justify-content-end px-3">
-          <div class="dropdown open" v-if="vault?.creatorId === account?.id">
-            <button class="btn p-0" type="button" id="vaultOptions" data-bs-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">
-              <img src="../assets/img/dots.png" alt="" class="selectable">
-            </button>
-            <div class="dropdown-menu text-center" aria-labelledby="vaultOptions">
-              <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editVaultModal">Edit</button>
-              <button class="dropdown-item" @click="deleteVault()">Delete</button>
+            :style="{ backgroundImage: `url(${vault?.img})` }">
+            <h1>{{ vault?.name }}</h1>
+            <span>by {{ vault?.creator.name }}</span>
+          </div>
+          <div class="w-100 d-flex justify-content-end px-3">
+            <div class="dropdown open" v-if="vault?.creatorId === account?.id">
+              <button class="btn p-0" type="button" id="vaultOptions" data-bs-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                <img src="../assets/img/dots.png" alt="" class="selectable">
+              </button>
+              <div class="dropdown-menu text-center" aria-labelledby="vaultOptions">
+                <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editVaultModal">Edit</button>
+                <button class="dropdown-item" @click="deleteVault()">Delete</button>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="d-flex justify-content-center mt-1"><span class="keeps-count px-2 py-2">{{ keepsInVault.length }}
-          Keeps</span></div>
+          <div class="d-flex justify-content-center mt-3"><span class="keeps-count fw-700 px-2 py-2">{{ keepsInVault.length }}
+              Keeps</span></div>
         </div>
       </div>
     </section>
-    <div class="keeps p-3">
+    <div class="keeps p-3" v-if="keepsInVault.length > 0">
       <KeepCard v-for="k in keepsInVault" :key="k.vaultKeepId" :keepInVault="k" />
+    </div>
+    <div class="d-flex flex-column h-80" v-else>
+      <h3 class="m-auto">This vault has no keeps!<span v-if="vault.creatorId === account.id"> Please add some
+          keeps!</span></h3>
     </div>
   </section>
   <div class="d-flex flex-column h-80 pos-relative" v-else>
@@ -99,6 +103,8 @@ export default {
 .keeps-count {
   background-color: #DED6E9;
   border-radius: 15px;
+  font-family: 'Oxygen', sans-serif;
+  font-size: 20px;
 }
 
 @media screen and (min-width: 768px) {

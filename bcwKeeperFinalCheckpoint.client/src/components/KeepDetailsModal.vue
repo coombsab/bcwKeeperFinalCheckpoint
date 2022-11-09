@@ -9,12 +9,12 @@
             </div>
             <div class="col-12 col-md-6 d-flex flex-column align-items-center justify-content-evenly px-5">
               <div class="d-flex gap-3">
-                <div class="d-flex gap-2">
-                  <img src="../assets/img/views.png" alt="">
+                <div class="d-flex gap-2 no-select" title="Total Views of this Keep">
+                  <img src="../assets/img/views.png" alt="views">
                   <span>{{ keep?.views }}</span>
                 </div>
-                <div class="d-flex gap-2">
-                  <img src="../assets/img/keeps.png" alt="">
+                <div class="d-flex gap-2 no-select" title="Number of times Kept in a Vault">
+                  <img src="../assets/img/keeps.png" alt="keeps">
                   <span>{{ keep?.kept }}</span>
                 </div>
               </div>
@@ -27,7 +27,7 @@
                 <KeepDetailsDropMenu :keep="keep" v-else />
                 <div class="d-flex gap-2 align-items-center">
                   <img :src="keep?.creator.picture" :alt="keep?.creator.name" class="profile-img selectable"
-                    @click="goToProfile()">
+                    @click="goToProfile()" title="Go to Profile Page">
                   <span>{{ keep?.creator.name }}</span>
                 </div>
               </div>
