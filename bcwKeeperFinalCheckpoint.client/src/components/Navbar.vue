@@ -1,10 +1,10 @@
 <template>
   <nav
-    class="navbar navbar-expand-lg bg-nav px-3 p-md-3 justify-content-between align-items-center">
+    class="navbar navbar-expand-lg bg-nav px-3 p-md-4 justify-content-between align-items-center">
     <div class="nav-wrapper d-flex justify-content-between align-items-center">
       <div class="d-flex justify-content-between align-items-center gap-5 order-3 order-md-0">
         <div class="sm-hidden z-1">
-          <router-link :to="{ name: 'Home' }">
+          <router-link :to="{ name: 'Home' }" :class="route.name === 'Home' ? 'unselectable' : ''">
             <button class="btn">Home</button>
           </router-link>
         </div>
@@ -16,8 +16,8 @@
         <Login />
       </div>
       <div class="logo-wrapper d-flex align-items-center justify-content-center order-0 order-md-2">
-        <router-link :to="{ name: 'Home' }" class="unselectable">
-          <img alt="logo" src="../assets/img/Keepr-logo.png" height="75.53" />
+        <router-link :to="{ name: 'Home' }" class="md-unselectable">
+          <img alt="logo" src="../assets/img/Keepr-logo.png" height="75.53" class="no-select" :aria-label="route.name === 'Home' ? '' : 'Go Home'" />
         </router-link>
       </div>
     </div>
@@ -26,12 +26,15 @@
 
 <script>
 import { computed } from "@vue/reactivity";
+import { useRoute } from "vue-router";
 import { AppState } from "../AppState";
 import CreateDropMenu from "./CreateDropMenu.vue";
 import Login from './Login.vue'
 export default {
   setup() {
+    const route = useRoute()
     return {
+      route,
       user: computed(() => AppState.user)
     }
   },
@@ -44,7 +47,10 @@ export default {
   background-color: #FEF6F0;
 }
 
-
+.unselectable {
+    pointer-events: none;
+    cursor: default;
+  }
 
 .nav-wrapper {
   height: 100%;
@@ -66,7 +72,7 @@ export default {
     width: 100%;
   }
 
-  .unselectable {
+  .md-unselectable {
     pointer-events: none;
     cursor: default;
   }

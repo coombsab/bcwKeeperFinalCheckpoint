@@ -1,7 +1,7 @@
 <template>
   <router-link :to="{ name: 'Vault', params: { vaultId: vault.id } }">
     <section class="vault-card mb-3 d-flex flex-column justify-content-end pos-relative elevation-3"
-      :style="{ backgroundImage: `url(${vault.img})` }">
+      :style="{ backgroundImage: `url(${vault.img})` }" title="Go to Vault Details Page">
       <div class="text-visible p-2 title text-start">
         <span>{{ vault.name }}</span>
       </div>
@@ -69,7 +69,7 @@ img {
 
 @media screen and (min-width: 768px) {
   .vault-card {
-    height: 15vh;
+    height: 20vh;
     // width: 20vw;
   }
 }

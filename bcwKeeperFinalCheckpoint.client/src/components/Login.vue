@@ -1,6 +1,6 @@
 <template>
   <span class="navbar-text">
-    <button class="btn text-visible text-uppercase my-2 my-lg-0" @click="login" v-if="!user.isAuthenticated">
+    <button class="login-btn btn text-visible text-uppercase my-2 my-lg-0" @click="login" v-if="!user.isAuthenticated">
       Login
     </button>
     <div v-else>
@@ -133,6 +133,7 @@ export default {
     bottom: -50%;
     left: -175px;
     z-index: 1;
+    transition: 0.2 linear;
   }
 
   .drop-up:hover .drop-up-content {
@@ -141,6 +142,10 @@ export default {
 
   .drop-up:hover .drop-btn {
     background-color: #2980B9;
+  }
+
+  .login-btn:hover { 
+    color: white !important;
   }
 }
 </style>

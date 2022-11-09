@@ -1,6 +1,6 @@
 <template>
   <section class="keep-card mb-3 elevation-3 pos-relative">
-    <div class="keep-card-wrapper pos-relative" @click="openModal()">
+    <div class="keep-card-wrapper pos-relative" @click="openModal()" title="Open Keep Details Modal">
       <img :src="keep?.img || keepInVault?.img" :alt="keep?.name || keepInVault?.name" class="keep-img" data-toggle="modal" data-target="#keepDetailsModal">
 
       <span class="text-visible keep-label m-3">{{ keep?.name || keepInVault?.name }}</span>

@@ -8,7 +8,7 @@
       <input type="url" class="form-control" name="profilePicture" id="profilePicture" placeholder="Image URL" v-model="editable.picture">
       <label for="profilePicture">Image URL</label>
     </div>
-    <div class="form-floating">
+    <div class="form-floating mb-3">
       <input type="url" class="form-control" name="profileCoverImg" id="profileCoverImg" placeholder="Cover Image" v-model="editable.coverImg">
       <label for="profileCoverImg">Cover Image</label>
     </div>
@@ -64,5 +64,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+textarea {
+  height: 10.8rem !important;
+}
 </style>
