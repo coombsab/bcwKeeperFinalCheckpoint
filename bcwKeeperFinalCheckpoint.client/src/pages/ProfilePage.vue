@@ -51,7 +51,7 @@ export default {
         await accountService.getUserVaults(route.params.profileId);
       }
       catch (error) {
-        Pop.error(error.message, "[function]");
+        Pop.error(error.message, "[getUserVaults]");
       }
     }
     async function getUserKeeps() {
@@ -59,7 +59,7 @@ export default {
         await accountService.getUserKeeps(route.params.profileId);
       }
       catch (error) {
-        Pop.error(error.message, "[function]");
+        Pop.error(error.message, "[getUserKeeps]");
       }
     }
     onMounted(() => {
