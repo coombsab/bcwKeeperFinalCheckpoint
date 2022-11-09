@@ -1,7 +1,7 @@
 <template>
   <div class="modal-bg" id="keepDetailsModal">
     <div class="modal-content-wrapper">
-      <div class="modal-content" v-if="keep">
+      <div class="modal-content">
         <div class="container-fluid p-0">
           <div class="row">
             <div class="col-12 col-md-6">
@@ -48,10 +48,6 @@
           </div>
         </div>
       </div>
-      <div class="d-flex flex-column h-80 pos-relative text-visible" v-else>
-        <span class="fadeIn m-auto fs-1 fw-700">Could not find this vault!</span>
-        <Spinner />
-      </div>
     </div>
   </div>
 </template>
@@ -61,6 +57,7 @@ import { computed } from "@vue/reactivity";
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { AppState } from "../AppState";
+import Pop from "../utils/Pop";
 import KeepDetailsDropMenu from "./KeepDetailsDropMenu.vue";
 import KeepDetailsRemove from "./KeepDetailsRemove.vue";
 
@@ -70,11 +67,15 @@ export default {
     const route = useRoute();
 
     function setupModal() {
-      let modalBg = document.getElementById("keepDetailsModal");
-      let modal = document.getElementById("keepDetailsModalContent");
-      modalBg.addEventListener("click", closeModal);
-      modal.addEventListener("click", modalClick);
-
+      try {
+        let modalBg = document.getElementById("keepDetailsModal");
+        let modal = document.getElementById("keepDetailsModalContent");
+        modalBg.addEventListener("click", closeModal);
+        modal.addEventListener("click", modalClick);
+      }
+      catch (error) {
+        Pop.error(error.message, "[setupModal]")
+      }
     }
 
     function modalClick(event) {
