@@ -8,15 +8,12 @@
 <script>
 import { computed } from "@vue/reactivity";
 import { AppState } from "../AppState";
-import { Keep } from "../models/Keep";
-import { KeepInVault } from "../models/KeepInVault";
 import { vaultKeepsService } from "../services/VaultKeepsService";
 import Pop from "../utils/Pop";
 
 export default {
   props: {
-    keep: { type: Keep },
-    keepInVault: { type: KeepInVault }
+    keepInVault: { type: Object }
   },
   setup(props) {
     return {
@@ -35,7 +32,7 @@ export default {
           modal.style.display = "none"
           let body = document.querySelector("body");
           body.style.overflow = "auto"
-          Pop.toast(`Removed ${props.keepInVault.name} from ${this.vault.name}`)
+          Pop.toast(`Removed ${props.keepInVault.name} from ${this.vault.name}`, "warning", "top")
 
         }
         catch (error) {

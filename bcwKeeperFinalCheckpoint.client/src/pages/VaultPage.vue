@@ -83,7 +83,7 @@ export default {
           }
           await vaultsService.deleteVault(route.params.vaultId)
           router.push({ name: 'Home' })
-          Pop.toast(`${this.vault.name} has been deleted!`)
+          Pop.toast(`${this.vault.name} has been deleted!`, "warning", "top")
         }
         catch (error) {
           Pop.error(error.message, "[deleteVault]")

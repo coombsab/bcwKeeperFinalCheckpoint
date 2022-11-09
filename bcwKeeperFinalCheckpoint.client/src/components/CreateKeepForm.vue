@@ -41,7 +41,7 @@ export default {
         try {
           await keepsService.createKeep(editable.value)
           Modal.getOrCreateInstance("#createKeepModal").hide()
-          Pop.toast(`Created ${editable.value.name}`)
+          Pop.toast(`Created ${editable.value.name}`, "success", "top")
           editable.value = {}
         }
         catch (error) {

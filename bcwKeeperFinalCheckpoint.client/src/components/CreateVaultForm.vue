@@ -34,7 +34,7 @@ export default {
         try {
           await vaultsService.createVault(editable.value)
           Modal.getOrCreateInstance("#createVaultModal").hide()
-          Pop.toast(`Created ${editable.value.name}`)
+          Pop.toast(`Created ${editable.value.name}`, "success", "top")
           editable.value = { isPrivate: false }
         }
         catch(error) {

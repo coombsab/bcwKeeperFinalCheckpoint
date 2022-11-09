@@ -57,7 +57,7 @@ export default {
             return
           }
           await keepsService.deleteKeep(props.keep.id)
-          Pop.toast(`${props.keep.name} has been deleted.`)
+          Pop.toast(`${props.keep.name} has been deleted.`, "warning", "top")
         }
         catch (error) {
           Pop.error(error.message, "[deleteKeep]")

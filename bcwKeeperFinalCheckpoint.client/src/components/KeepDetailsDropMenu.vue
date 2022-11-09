@@ -14,13 +14,12 @@
 import { computed } from "@vue/reactivity";
 import { ref } from "vue";
 import { AppState } from "../AppState";
-import { Keep } from "../models/Keep";
 import { vaultKeepsService } from "../services/VaultKeepsService";
 import Pop from "../utils/Pop";
 
 export default {
   props: {
-    keep: { type: Keep }
+    keep: { type: Object }
   },
   setup(props) {
     const editable = ref({})
@@ -31,13 +30,16 @@ export default {
       myVaults: computed(() => AppState.myVaults),
       async saveKeepToVault() {
         try {
+          if(!this.editable.vaultId) {
+            return
+          }
           await vaultKeepsService.saveKeepToVault(this.editable.vaultId, props.keep.id)
           // For closing modal, but not sure if I want this behavior
           // const modal = document.getElementById("keepDetailsModal")
           // const body = document.querySelector("body")
           // modal.style.display = "none"
           // body.style.overflow = "auto"
-          Pop.toast(`Saved ${props.keep.name} to vault.`)
+          Pop.toast(`Saved ${props.keep.name} to vault.`, "success", "top")
           editable.value = {}
         }
         catch (error) {
