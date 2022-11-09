@@ -1,7 +1,7 @@
 <template>
-  <section class="profile-card rounded mt-5">
+  <section class="profile-card mt-md-5">
     <div class="pos-relative">
-      <img class="cover-img rounded" :src="profile?.coverImg || account?.coverImg" alt="User Cover Image">
+      <img class="cover-img" :src="profile?.coverImg || account?.coverImg" alt="User Cover Image">
       <div class="profile-photo-wrapper">
         <img class="profile-photo elevation-3" :src="profile?.picture || account?.picture"
           :alt="profile?.name || account?.name">
@@ -19,10 +19,10 @@
       </div>
     </div>
     <div class="pt-10 d-flex flex-column align-items-center">
-      <h1>{{profile?.name || account?.name}}</h1>
-      <p v-if="route.name === 'Account'">{{myVaults?.length}} vaults | {{myKeeps?.length}} keeps</p>
-      <p v-else>{{vaults?.length}} vaults | {{keeps?.length}} keeps</p>
-      <p>{{profile?.bio || account?.bio}}</p>
+      <h1>{{ profile?.name || account?.name }}</h1>
+      <p v-if="route.name === 'Account'">{{ myVaults?.length }} vaults | {{ myKeeps?.length }} keeps</p>
+      <p v-else>{{ vaults?.length }} vaults | {{ keeps?.length }} keeps</p>
+      <p>{{ profile?.bio || account?.bio }}</p>
     </div>
   </section>
 </template>
@@ -55,7 +55,7 @@ export default {
 
 <style scoped lang="scss">
 .profile-card {
-  width: 40vw;
+  width: 100vw;
   margin: auto;
 }
 
@@ -89,5 +89,16 @@ export default {
 
 .pt-10 {
   padding-top: 5rem;
+}
+
+@media screen and (min-width: 768px) {
+  .profile-card {
+    width: 40vw;
+  }
+
+  .cover-img {
+    border-radius: 6.94872px;
+
+  }
 }
 </style>

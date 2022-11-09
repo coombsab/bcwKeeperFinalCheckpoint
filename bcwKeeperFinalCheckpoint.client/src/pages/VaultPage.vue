@@ -53,25 +53,25 @@ export default {
     async function getKeepsInVault() {
       try {
         await keepsService.getKeepsInVault(route.params.vaultId)
-      }
-      catch (error) {
-        router.push({ name: 'Home' })
-        Pop.error(error.message, "[getKeepsInVault]")
-      }
-    }
-
-    async function setActiveVault() {
-      try {
         await vaultsService.setActiveVault(route.params.vaultId)
       }
       catch (error) {
-        Pop.error(error.message, "[setActiveVault]")
+        router.push({ name: 'Home' })
+        Pop.error("Sorry, that vault is private and is not yours.", "[getKeepsInVault]" + error.message)
       }
     }
 
+    // async function setActiveVault() {
+    //   try {
+    //   }
+    //   catch (error) {
+    //     Pop.error(error.message, "[setActiveVault]")
+    //   }
+    // }
+
     onMounted(() => {
       getKeepsInVault()
-      setActiveVault()
+      // setActiveVault()
     })
 
     // watchEffect(() => {
