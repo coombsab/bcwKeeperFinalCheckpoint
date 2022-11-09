@@ -1,7 +1,7 @@
 <template>
   <div class="modal-bg" id="keepDetailsModal">
     <div class="modal-content-wrapper">
-      <div class="modal-content">
+      <div class="modal-content" v-if="keep">
         <div class="container-fluid p-0">
           <div class="row">
             <div class="col-12 col-md-6">
@@ -48,6 +48,10 @@
           </div>
         </div>
       </div>
+      <div class="d-flex flex-column h-80 pos-relative text-visible" v-else>
+        <span class="fadeIn m-auto fs-1 fw-700">Could not find this vault!</span>
+        <Spinner />
+      </div>
     </div>
   </div>
 </template>
@@ -72,7 +76,7 @@ export default {
       modal.addEventListener("click", modalClick);
 
     }
-    
+
     function modalClick(event) {
       event.preventDefault();
       event.stopPropagation();
