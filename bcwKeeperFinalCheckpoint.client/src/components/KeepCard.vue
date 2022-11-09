@@ -52,12 +52,12 @@ export default {
       },
       async deleteKeep() {
         try {
-          const yes = await Pop.confirm(`Do you want to delete ${props.keep.name}?`)
+          const yes = await Pop.confirm(`Do you want to delete ${props.keep?.name || props.keepInVault?.name}?`)
           if (!yes) {
             return
           }
-          await keepsService.deleteKeep(props.keep.id)
-          Pop.toast(`${props.keep.name} has been deleted.`, "warning", "top")
+          await keepsService.deleteKeep(props.keep?.id || props.keepInVault?.id)
+          Pop.toast(`${props.keep?.name|| props.keepInVault?.name} has been deleted.`, "warning", "top")
         }
         catch (error) {
           Pop.error(error.message, "[deleteKeep]")
