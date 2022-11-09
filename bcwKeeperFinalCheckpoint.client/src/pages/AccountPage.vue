@@ -5,7 +5,13 @@
       <h1>Vaults</h1>
     </div>
     <section class="vaults gap-3">
-      <VaultCard v-for="v in myVaults" :key="v.id" :vault="v" />
+    </section>
+    <section class="container-fluid">
+      <div class="row">
+        <div class="col-6 col-md-3 p-3" v-for="v in myVaults">
+          <VaultCard :key="v.id" :vault="v" />
+        </div>
+      </div>
     </section>
     <div class="p-3">
       <h1>Keeps</h1>
@@ -26,33 +32,24 @@ import { AppState } from '../AppState'
 import KeepCard from "../components/KeepCard.vue"
 import ProfileCard from "../components/ProfileCard.vue"
 import VaultCard from "../components/VaultCard.vue"
-import { accountService } from "../services/AccountService"
-import Pop from "../utils/Pop"
+
 export default {
   setup() {
-    // async function setActiveProfile() {
-    //   try {
-    //     await accountService.getProfile(AppState.account.id)
-    //   }
-    //   catch(error) {
-    //     Pop.error(error.message, "[setActiveProfile]")
-    //   }
-    // }
-
-    // onMounted(() => {
-    //   setActiveProfile()
-    // })
-
-    // watchEffect(() => {
-    //   if (AppState.user.isAuthenticated) {
-    //     setActiveProfile()
-    //   }
-    // })
-
     return {
       account: computed(() => AppState.account),
       profile: computed(() => AppState.activeProfile),
-      myVaults: computed(() => AppState.myVaults),
+      myVaults: computed(() => AppState.myVaults.sort(function(a, b) {
+        // turnary could be used, but maybe splitting it up is easier to read?
+        // return (a.isPrivate === b.isPrivate ? 0 : a.isPrivate ? 1 : -1) 
+
+        if (a.isPrivate === b.isPrivate) {
+          return 0
+        } else if (a.isPrivate){
+          return 1
+        } else {
+          return -1
+        }
+      })),
       myKeeps: computed(() => AppState.myKeeps)
     };
   },
@@ -63,12 +60,6 @@ export default {
 <style scoped>
 img {
   max-width: 100px;
-}
-
-.vaults {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
 }
 
 .keeps {

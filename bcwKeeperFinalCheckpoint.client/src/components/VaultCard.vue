@@ -1,8 +1,9 @@
 <template>
-  <router-link :to="{ name: 'Vault', params: { vaultId: vault.id }}">
-    <section class="vault-card mb-3 d-flex flex-column justify-content-end pos-relative elevation-3" :style="{ backgroundImage: `url(${vault.img})`}">
-      <div class="text-visible px-1 title">
-        <span>{{vault.name}}</span>
+  <router-link :to="{ name: 'Vault', params: { vaultId: vault.id } }">
+    <section class="vault-card mb-3 d-flex flex-column justify-content-end pos-relative elevation-3"
+      :style="{ backgroundImage: `url(${vault.img})` }">
+      <div class="text-visible p-2 title text-start">
+        <span>{{ vault.name }}</span>
       </div>
       <img src="../assets/img/private-edited.png" alt="private" class="private-img" v-if="vault.isPrivate">
     </section>
@@ -28,8 +29,8 @@ export default {
 <style scoped lang="scss">
 .vault-card {
   font-family: 'Quando', serif;
-  height: 8rem;
-  width: 12rem;
+  height: 20vh;
+  // width: 40vw;
   background-position: center;
   background-size: cover;
   border-radius: 6.94872px;
@@ -64,5 +65,12 @@ img {
   position: absolute;
   right: 3%;
   bottom: 3%;
+}
+
+@media screen and (min-width: 768px) {
+  .vault-card {
+    height: 15vh;
+    // width: 20vw;
+  }
 }
 </style>

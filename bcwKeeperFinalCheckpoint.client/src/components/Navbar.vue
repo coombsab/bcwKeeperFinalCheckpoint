@@ -12,7 +12,9 @@
       </div>
       <Login class="order-3 z-1" />
       <div class="logo-wrapper d-flex align-items-center justify-content-center order-0 order-md-2">
-        <img alt="logo" src="../assets/img/Keepr-logo.png" height="75.53" />
+        <router-link :to="{ name: 'Home' }" class="unselectable">
+          <img alt="logo" src="../assets/img/Keepr-logo.png" height="75.53" />
+        </router-link>
       </div>
     </div>
   </nav>
@@ -58,6 +60,11 @@ export default {
     position: relative;
     height: 100%;
     width: 100%;
+  }
+
+  .unselectable {
+    pointer-events: none;
+    cursor: default;
   }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <section class="keep-card mb-3 elevation-3 pos-relative">
     <div class="keep-card-wrapper pos-relative" @click="openModal()">
-      <img :src="keep?.img || keepInVault?.img" :alt="keep?.name || keepInVault?.name" class="img-fluid" data-toggle="modal" data-target="#keepDetailsModal">
+      <img :src="keep?.img || keepInVault?.img" :alt="keep?.name || keepInVault?.name" class="keep-img" data-toggle="modal" data-target="#keepDetailsModal">
 
       <span class="text-visible keep-label m-3">{{ keep?.name || keepInVault?.name }}</span>
     </div>
@@ -76,6 +76,11 @@ export default {
   border-radius: 6.94872px;
 }
 
+.keep-img {
+  width: 100%;
+  height: 100%;
+}
+
 .keep-card-wrapper {
   height: 100%;
   width: 100%;
@@ -115,7 +120,7 @@ img {
     transition: 0.15s linear;
   }
 
-  .keep-card-wrapper:hover {
+  .keep-card:hover {
     transform: scale(1.03);
     filter: brightness(0.85);
   }

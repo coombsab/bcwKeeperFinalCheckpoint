@@ -4,8 +4,14 @@
     <div class="p-3">
       <h1>Vaults</h1>
     </div>
+    <section class="container-fluid">
+      <div class="row">
+        <div class="col-6 col-md-3 p-3" v-for="v in vaults">
+          <VaultCard :key="v.id" :vault="v" />
+        </div>
+      </div>
+    </section>
     <section class="vaults gap-3">
-      <VaultCard v-for="v in vaults" :key="v.id" :vault="v" />
     </section>
     <div class="p-3">
       <h1>Keeps</h1>
@@ -30,55 +36,49 @@ import { accountService } from "../services/AccountService";
 import Pop from "../utils/Pop";
 
 export default {
-    setup() {
-        const route = useRoute();
-        async function setActiveProfile() {
-            try {
-                await accountService.getProfile(route.params.profileId);
-            }
-            catch (error) {
-                Pop.error(error.message, "[setActiveProfile]");
-            }
-        }
-        async function getUserVaults() {
-            try {
-                await accountService.getUserVaults(route.params.profileId);
-            }
-            catch (error) {
-                Pop.error(error.message, "[function]");
-            }
-        }
-        async function getUserKeeps() {
-            try {
-                await accountService.getUserKeeps(route.params.profileId);
-            }
-            catch (error) {
-                Pop.error(error.message, "[function]");
-            }
-        }
-        onMounted(() => {
-            setActiveProfile();
-            getUserVaults();
-            getUserKeeps();
-        });
-        return {
-            route,
-            profile: computed(() => AppState.activeProfile),
-            keeps: computed(() => AppState.keeps),
-            vaults: computed(() => AppState.vaults)
-        };
-    },
-    components: { ProfileCard }
+  setup() {
+    const route = useRoute();
+    async function setActiveProfile() {
+      try {
+        await accountService.getProfile(route.params.profileId);
+      }
+      catch (error) {
+        Pop.error(error.message, "[setActiveProfile]");
+      }
+    }
+    async function getUserVaults() {
+      try {
+        await accountService.getUserVaults(route.params.profileId);
+      }
+      catch (error) {
+        Pop.error(error.message, "[function]");
+      }
+    }
+    async function getUserKeeps() {
+      try {
+        await accountService.getUserKeeps(route.params.profileId);
+      }
+      catch (error) {
+        Pop.error(error.message, "[function]");
+      }
+    }
+    onMounted(() => {
+      setActiveProfile();
+      getUserVaults();
+      getUserKeeps();
+    });
+    return {
+      route,
+      profile: computed(() => AppState.activeProfile),
+      keeps: computed(() => AppState.keeps),
+      vaults: computed(() => AppState.vaults)
+    };
+  },
+  components: { ProfileCard }
 }
 </script>
 
 <style scoped lang="scss">
-.vaults {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-}
-
 .keeps {
   columns: 2;
 }
