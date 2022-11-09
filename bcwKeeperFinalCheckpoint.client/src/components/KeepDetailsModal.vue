@@ -72,26 +72,29 @@ export default {
       modal.addEventListener("click", modalClick);
 
     }
+    
     function modalClick(event) {
       event.preventDefault();
       event.stopPropagation();
       event.stopImmediatePropagation();
       return false;
     }
+
     function closeModal() {
       let modal = document.getElementById("keepDetailsModal");
       let body = document.querySelector("body");
       modal.style.display = "none";
       body.style.overflow = "auto";
     }
+
     onMounted(() => {
       setupModal();
     });
+
     return {
       router,
       route,
       keep: computed(() => AppState.activeKeep),
-      // myVaults: computed(() => AppState.myVaults),
       vault: computed(() => AppState.activeVault),
       account: computed(() => AppState.account),
       user: computed(() => AppState.user),
@@ -107,10 +110,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-// .keepDetailsModalContent {
-//   pointer-events: none;
-// }
-
 .modal-bg {
   display: none;
   position: fixed;

@@ -20,10 +20,9 @@
               </div>
             </div>
           </div>
-          <div class="d-flex justify-content-center mt-3"><span class="keeps-count fw-700 px-2 py-2">{{
-              keepsInVault.length
-          }}
-              Keeps</span></div>
+          <div class="d-flex justify-content-center mt-3">
+            <span class="keeps-count fw-700 px-2 py-2">{{ keepsInVault.length }} Keeps</span>
+          </div>
         </div>
       </div>
     </section>
