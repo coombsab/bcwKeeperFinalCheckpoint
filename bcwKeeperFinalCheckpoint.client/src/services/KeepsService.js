@@ -42,9 +42,9 @@ class KeepsService {
 
   async deleteKeep(keepId) {
     const res = await api.delete(`api/keeps/${keepId}`)
-    AppState.keeps = AppState.keeps.filter(keep => keep.id !== keepId)
-    AppState.myKeeps = AppState.myKeeps.filter(keep => keep.id !== keepId)
-    AppState.keepsInVault = AppState.keepsInVault.filter(keep => keep.id !== keepId)
+    AppState.keeps = AppState.keeps.filter(keep => keep.id != keepId)
+    AppState.myKeeps = AppState.myKeeps.filter(keep => keep.id != keepId)
+    AppState.keepsInVault = AppState.keepsInVault.filter(keep => keep.id != keepId)
   }
 
   async createKeep(keepData) {

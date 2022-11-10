@@ -23,25 +23,26 @@ class VaultsService {
 
   async deleteVault(vaultId) {
     await api.delete(`api/vaults/${vaultId}`)
-    AppState.vaults = AppState.vaults.filter(vault => vault.id !== vaultId)
-    AppState.myVaults = AppState.myVaults.filter(vault => vault.id !== vaultId)
+    AppState.vaults = AppState.vaults.filter(vault => vault.id != vaultId)
+    AppState.myVaults = AppState.myVaults.filter(vault => vault.id != vaultId)
+
   }
 
   async editVault(vaultData, vaultId) {
     const res = await api.put(`api/vaults/${vaultId}`, vaultData)
     const vault = new Vault(res.data)
     AppState.activeVault = vault
-    
-    let vaultIndex = AppState.vaults.findIndex(v => v.id === vaultId)
+
+    let vaultIndex = AppState.vaults.findIndex(v => v.id == vaultId)
     if (vaultIndex >= 0) {
       AppState.vaults.splice(vaultIndex, 1, vault)
     }
 
-    vaultIndex = AppState.myVaults.findIndex(v => v.id === vaultId)
+    vaultIndex = AppState.myVaults.findIndex(v => v.id == vaultId)
     if (vaultIndex >= 0) {
       AppState.myVaults.splice(vaultIndex, 1, vault)
     }
-    
+
   }
 }
 
