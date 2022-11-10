@@ -3,7 +3,7 @@
     <KeepCard v-for="k in keeps" :key="k.id" :keep="k" />
   </div>
   <div class="d-flex flex-column h-80 pos-relative" v-else>
-    <span class="fadeIn m-auto fs-1 fw-700">Could not find any keeps.  Try reloading the page or adding some!</span>
+    <span class="fadeIn m-auto fs-1 fw-700 p-3">Could not find any keeps.  Try reloading the page or adding some!</span>
     <Spinner />
   </div>
 </template>

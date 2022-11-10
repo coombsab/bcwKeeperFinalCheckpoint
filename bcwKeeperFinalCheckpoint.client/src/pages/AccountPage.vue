@@ -27,7 +27,7 @@
     </section>
   </section>
   <div class="d-flex flex-column h-80 pos-relative" v-else>
-    <span class="fadeIn m-auto fs-1 fw-700">Could not find your account.</span>
+    <span class="fadeIn m-auto fs-1 fw-700 p-3">Could not find your account.</span>
     <Spinner />
   </div>
 </template>
