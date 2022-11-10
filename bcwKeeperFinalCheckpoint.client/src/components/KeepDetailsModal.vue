@@ -9,20 +9,21 @@
             </div>
             <div class="col-12 col-md-6 d-flex flex-column align-items-center justify-content-evenly px-5">
               <div class="d-flex gap-3">
-                <div class="d-flex gap-2 no-select" title="Total Views of this Keep">
-                  <img src="../assets/img/views.png" alt="views">
+                <div class="d-flex gap-2 no-select align-items-center" title="Total Views of this Keep">
+                  <img src="../assets/img/views.png" class="views-img" alt="views">
                   <span>{{ keep?.views }}</span>
                 </div>
-                <div class="d-flex gap-2 no-select" title="Number of times Kept in a Vault">
+                <div class="d-flex gap-2 align-items-center no-select" title="Number of times Kept in a Vault">
                   <img src="../assets/img/keeps.png" alt="keeps">
                   <span>{{ keep?.kept }}</span>
                 </div>
               </div>
-              <div class="">
+              <div class="d-flex flex-column align-items-center">
+                <h3>{{keep?.name}}</h3>
                 <span>{{ keep?.description }}</span>
               </div>
               <div class="w-100" id="keepDetailsModalContent">
-                <div class="d-flex flex-wrap justify-content-between align-items-center w-100"
+                <div class="d-flex flex-wrap justify-content-md-between justify-content-center align-items-center w-100"
                   v-if="user.isAuthenticated">
                   <KeepDetailsRemove :keepInVault="keep"
                     v-if="route.name === 'Vault' && vault?.creatorId === account?.id" />
@@ -158,6 +159,11 @@ export default {
   background-position: center;
   background-size: cover;
   border-radius: 6.94872px 0 0 6.94872px;
+}
+
+.views-img {
+  height: 15px;
+  width: 22px;
 }
 
 .profile-img {

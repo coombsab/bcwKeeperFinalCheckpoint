@@ -3,7 +3,7 @@
     <div class="keep-card-wrapper pos-relative" @click="openModal()" title="Open Keep Details Modal">
       <img :src="keep?.img || keepInVault?.img" :alt="keep?.name || keepInVault?.name" class="keep-img" data-toggle="modal" data-target="#keepDetailsModal">
 
-      <span class="text-visible keep-label m-3">{{ keep?.name || keepInVault?.name }}</span>
+      <span class="text-visible keep-label text-start m-3">{{ keep?.name || keepInVault?.name }}</span>
     </div>
     <router-link :to="{ name: 'Profile', params: { profileId: keep?.creatorId || keepInVault?.creatorId } }">
       <img :src="keep?.creator.picture || keepInVault?.creator.picture" :alt="keep?.creator.name || keepInVault?.creator.name" :title="keep?.creator.name || keepInVault?.creator.name"
