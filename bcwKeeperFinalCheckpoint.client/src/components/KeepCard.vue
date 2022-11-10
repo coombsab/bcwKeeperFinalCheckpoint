@@ -2,7 +2,9 @@
   <section class="keep-card mb-3 elevation-3 pos-relative">
     <div class="keep-card-wrapper pos-relative" @click="openModal()" title="Open Keep Details Modal">
       <img :src="keep?.img || keepInVault?.img" :alt="keep?.name || keepInVault?.name" class="keep-img" data-toggle="modal" data-target="#keepDetailsModal">
-
+      <div class="tags gap-2">
+        <Tag v-for="t in keep.tags" :key="t" :tag="t" />
+      </div>
       <span class="text-visible keep-label text-start m-3">{{ keep?.name || keepInVault?.name }}</span>
     </div>
     <router-link :to="{ name: 'Profile', params: { profileId: keep?.creatorId || keepInVault?.creatorId } }">
@@ -114,6 +116,15 @@ img {
   bottom: 10px;
   left: 0;
   width: 90%;
+}
+
+.tags {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 @media screen and (min-width: 768px) {

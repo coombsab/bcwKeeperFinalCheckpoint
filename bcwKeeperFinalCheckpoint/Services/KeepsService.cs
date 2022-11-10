@@ -16,20 +16,23 @@ public class KeepsService
   public List<Keep> GetAllKeeps(string offsetStr, string limitStr, string search)
   {
     int offset = OFFSET_DEFAULT, limit = LIMIT_DEFAULT;
-    if (offsetStr != null) {
+    if (offsetStr != null)
+    {
       offset = int.Parse(offsetStr);
-    } 
+    }
 
-    if (limitStr != null) {
+    if (limitStr != null)
+    {
       limit = int.Parse(limitStr);
     }
 
-    if (search != null) {
+    if (search != null)
+    {
       search = search.ToLower();
       return _keepsRepository.GetKeepsByTag(offset, limit, search);
     }
 
-      return _keepsRepository.GetAllKeeps(offset, limit);
+    return _keepsRepository.GetAllKeeps(offset, limit);
   }
 
   public Keep GetKeepById(int keepId)
@@ -57,10 +60,13 @@ public class KeepsService
     return keep;
   }
 
-  public List<KeepInVault> GetKeepsInVault(int vaultId, Account userInfo) {
+  public List<KeepInVault> GetKeepsInVault(int vaultId, Account userInfo)
+  {
     Vault vault = _vaultsService.GetVaultById(vaultId);
-    if (vault.isPrivate == true) {
-      if (userInfo == null || vault.CreatorId != userInfo.Id) {
+    if (vault.isPrivate == true)
+    {
+      if (userInfo == null || vault.CreatorId != userInfo.Id)
+      {
         throw new Exception("This vault is private and you are not the creator.  Fare thee well!");
       }
     }
@@ -70,6 +76,19 @@ public class KeepsService
   public Keep CreateKeep(Keep keepData, string userId)
   {
     keepData.CreatorId = userId;
+    if (keepData.Tags != null)
+    {
+      keepData.Tags = keepData.Tags.ToUpper();
+      string[] tags = keepData.Tags.Split(",");
+      for (int i = 0; i < tags.Length; i++)
+      {
+        tags[i] = tags[i].Trim();
+      }
+      string[] tagsArr = tags.Distinct().ToArray();
+      string processedTags = String.Join(",", tagsArr);
+      keepData.Tags = processedTags;
+    }
+
     int keepId = _keepsRepository.CreateKeep(keepData);
     Keep keep = GetKeepById(keepId);
 
@@ -84,16 +103,30 @@ public class KeepsService
       throw new Exception("This is not your keep so you may not edit it.");
     }
 
+    if (keepData.Tags != null)
+    {
+      keepData.Tags = keepData.Tags.ToUpper();
+      string[] tags = keepData.Tags.Split(",");
+      for (int i = 0; i < tags.Length; i++)
+      {
+        tags[i] = tags[i].Trim();
+      }
+      string[] tagsArr = tags.Distinct().ToArray();
+      string processedTags = String.Join(",", tagsArr);
+      keepData.Tags = processedTags;
+    }
+
+
     keep.Name = keepData.Name ?? keep.Name;
     keep.Description = keepData.Description ?? keep.Description;
     keep.Img = keepData.Img ?? keep.Img;
-    // TODO make sure no duplicate tags come in and verify that the string is a comma separated list
     keep.Tags = keepData.Tags ?? keep.Tags;
 
     return _keepsRepository.EditKeep(keep);
   }
 
-  public void UpdateKeep(Keep keep) {
+  public void UpdateKeep(Keep keep)
+  {
     _keepsRepository.EditKeep(keep);
   }
 
@@ -106,7 +139,7 @@ public class KeepsService
     }
 
     _keepsRepository.DeleteKeep(keepId);
-    
+
     return keep;
   }
 }

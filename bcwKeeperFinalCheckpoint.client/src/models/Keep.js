@@ -8,8 +8,8 @@ export class Keep {
     this.description = data.description
     this.img = data.img
     this.views = data.views
-    this.tags = data.tags
-
+    this.tags = data.tags?.length ? data.tags.split(',') : []
+    
     this.kept = data.kept
     this.creator = data.creator
   }

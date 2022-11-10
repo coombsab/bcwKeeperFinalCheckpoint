@@ -96,10 +96,10 @@ public class KeepsRepository
   {
     string sql = @"
       INSERT INTO keeps (
-        creatorId, name, description, img, views
+        creatorId, name, description, img, views, tags
       )
       VALUES (
-        @CreatorId, @Name, @Description, @Img, @Views
+        @CreatorId, @Name, @Description, @Img, @Views, @Tags
       );
       SELECT LAST_INSERT_ID();
     ";
