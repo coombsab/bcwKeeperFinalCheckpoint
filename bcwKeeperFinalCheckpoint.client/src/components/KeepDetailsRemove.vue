@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex gap-2 align-items-center selectable rounded" type="button" @click="removeKeepFromVault()">
+  <div class="d-flex gap-2 align-items-center selectable rounded" type="button" @click="removeKeepFromVault()" aria-label="Remove Keep from Vault">
     <img src="../assets/img/remove.png" alt="Remove Keep from Vault">
     <span>Remove</span>
   </div>

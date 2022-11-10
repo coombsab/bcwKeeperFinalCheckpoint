@@ -1,11 +1,11 @@
 <template>
   <div class="drop-up">
-    <div type="button" class=" drop-btn bg-dark border-0 no-select circle" @click="toggleShow()">
+    <div type="button" class=" drop-btn bg-dark border-0 no-select circle" @click="toggleShow()" aria-label="Open Login Menu">
       <div v-if="account.picture || user.picture">
         <img :src="account.picture || user.picture" alt="account photo" class="account-photo circle" />
       </div>
     </div>
-    <div id="loginDropMenu" class="drop-up-content rounded elevation-5 p-1">
+    <div id="loginDropMenu" class="drop-up-content rounded elevation-5 p-1" aria-label="Login Menu">
       <router-link :to="{ name: 'Account' }">
         <div class="list-group-item dropdown-item list-group-item-action">
           Manage Account

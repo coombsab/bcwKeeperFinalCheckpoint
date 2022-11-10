@@ -1,7 +1,7 @@
 <template>
   <div class="dropdown sm-hidden z-1">
     <button class="btn dropdown-toggle" type="button" id="createDropDown" data-bs-toggle="dropdown"
-      aria-haspopup="true" aria-expanded="false">
+      aria-haspopup="true" aria-expanded="false" aria-label="Open Create Menu">
       Create
     </button>
     <div class="dropdown-menu" aria-labelledby="createDropDown">
@@ -13,7 +13,7 @@
   </div>
   <div class="dropup md-hidden">
     <button class="btn btn-secondary dropdown-toggle" type="button" id="createDropUp" data-bs-toggle="dropdown"
-      aria-haspopup="true" aria-expanded="false">
+      aria-haspopup="true" aria-expanded="false" aria-label="Open Create Menu">
       Create
     </button>
     <div class="dropdown-menu" aria-labelledby="createDropUp">

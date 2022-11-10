@@ -11,7 +11,7 @@
           <div class="w-100 d-flex justify-content-end px-3">
             <div class="dropdown open" v-if="vault?.creatorId === account?.id">
               <button class="btn p-0" type="button" id="vaultOptions" data-bs-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">
+                aria-expanded="false" aria-label="Open Vault Options Dropdown" title="Open Vault Options Dropdown">
                 <img src="../assets/img/dots.png" alt="" class="selectable">
               </button>
               <div class="dropdown-menu text-center" aria-labelledby="vaultOptions">

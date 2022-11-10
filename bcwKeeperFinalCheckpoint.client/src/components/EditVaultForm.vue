@@ -14,7 +14,7 @@
         <input type="checkbox" v-model="editable.isPrivate">
         <span>Make Vault Private?</span>
       </div>
-      <button class="btn btn-dark px-5 py-1" type="submit">Create Vault</button>
+      <button class="btn btn-dark px-5 py-1" type="submit">Edit Vault</button>
     </div>
   </form>
 </template>

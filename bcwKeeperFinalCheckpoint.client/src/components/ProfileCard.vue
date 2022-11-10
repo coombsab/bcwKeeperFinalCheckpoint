@@ -10,7 +10,7 @@
     <div class="w-100 d-flex justify-content-end px-3">
       <div class="dropdown open" v-if="route.name === 'Account'">
         <button class="btn p-0" type="button" id="profileOptions" data-bs-toggle="dropdown" aria-haspopup="true"
-          aria-expanded="false">
+          aria-expanded="false" aria-label="Open Profile Options Menu" title="Open Profile Options Menu">
           <img src="../assets/img/dots.png" alt="" class="selectable">
         </button>
         <div class="dropdown-menu text-center" aria-labelledby="profileOptions">

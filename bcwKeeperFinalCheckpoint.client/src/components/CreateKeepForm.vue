@@ -21,7 +21,7 @@
       <label for="keepDescription">Keep Description</label>
     </div>
     <div class="text-end">
-      <button class="btn btn-dark" type="submit">Create</button>
+      <button class="btn btn-dark" type="submit">Create Keep</button>
     </div>
   </form>
 </template>

@@ -30,7 +30,7 @@
                   <KeepDetailsDropMenu :keep="keep" v-else />
                   <div class="d-flex gap-2 align-items-center">
                     <img :src="keep?.creator.picture" :alt="keep?.creator.name" class="profile-img selectable"
-                      @click="goToProfile()" title="Go to Profile Page">
+                      @click="goToProfile()" title="Go to Profile Page" aria-label="Go to Profile Page">
                     <span>{{ keep?.creator.name }}</span>
                   </div>
                 </div>
@@ -40,7 +40,7 @@
                   <KeepDetailsDropMenu :keep="keep" v-else />
                   <div class="d-flex gap-2 align-items-center">
                     <img :src="keep?.creator.picture" :alt="keep?.creator.name" class="profile-img selectable"
-                      @click="goToProfile()" title="Go to Profile Page">
+                      @click="goToProfile()" title="Go to Profile Page" aria-label="Go to Profile Page">
                     <span>{{ keep?.creator.name }}</span>
                   </div>
                 </div>

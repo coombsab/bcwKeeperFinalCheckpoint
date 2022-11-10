@@ -1,7 +1,7 @@
 <template>
   <section class="keep-card mb-3 elevation-3 pos-relative">
-    <div class="keep-card-wrapper pos-relative" @click="openModal()" title="Open Keep Details Modal">
-      <img :src="keep?.img || keepInVault?.img" :alt="keep?.name || keepInVault?.name" class="keep-img" data-toggle="modal" data-target="#keepDetailsModal">
+    <div class="keep-card-wrapper pos-relative" @click="openModal()" aria-label="Open Keep Details Modal" title="Open Keep Details Modal">
+      <img :src="keep?.img || keepInVault?.img" :alt="keep?.name || keepInVault?.name" class="keep-img">
       <div class="tags gap-2">
         <Tag v-for="t in keep.tags" :key="t" :tag="t" />
       </div>
@@ -9,9 +9,9 @@
     </div>
     <router-link :to="{ name: 'Profile', params: { profileId: keep?.creatorId || keepInVault?.creatorId } }">
       <img :src="keep?.creator.picture || keepInVault?.creator.picture" :alt="keep?.creator.name || keepInVault?.creator.name" :title="keep?.creator.name || keepInVault?.creator.name"
-        class="profile-img selectable m-3">
+        class="profile-img selectable m-3" aria-label="Go to User Profile Page">
     </router-link>
-    <i class="mdi mdi-close on-hover selectable delete-icon text-visible" title="Delete Keep" @click="deleteKeep()"
+    <i class="mdi mdi-close on-hover selectable delete-icon text-visible" aria-label="Delete Keep" title="Delete Keep" @click="deleteKeep()"
       v-if="(keep?.creatorId === account.id || keepInVault?.creatorId === account.id) && user.isAuthenticated"></i>
   </section>
 </template>
