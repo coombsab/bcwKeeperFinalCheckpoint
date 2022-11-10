@@ -3,7 +3,7 @@
     <div class="keep-card-wrapper pos-relative" @click="openModal()" aria-label="Open Keep Details Modal" title="Open Keep Details Modal">
       <img :src="keep?.img || keepInVault?.img" :alt="keep?.name || keepInVault?.name" class="keep-img">
       <div class="tags gap-2">
-        <Tag v-for="t in keep.tags" :key="t" :tag="t" />
+        <Tag v-for="t in keep?.tags" :key="t" :tag="t" />
       </div>
       <span class="text-visible keep-label text-start m-3">{{ keep?.name || keepInVault?.name }}</span>
     </div>
