@@ -1,4 +1,4 @@
--- Active: 1667581625209@@SG-brawny-mantis-3541-6847-mysql-master.servers.mongodirector.com@3306@keeper
+-- Active: 1671070708972@@SG-cosmic-tailor-7231-7009-mysql-master.servers.mongodirector.com@3306@keeper
 
 CREATE TABLE
     IF NOT EXISTS accounts(

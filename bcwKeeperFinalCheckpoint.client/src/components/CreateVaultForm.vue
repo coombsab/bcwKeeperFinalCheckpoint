@@ -1,12 +1,19 @@
 <template>
   <form @submit.prevent="createVault()">
     <div class="form-floating mb-3">
-      <input type="text" class="form-control" name="vaultName" id="vaultName" placeholder="Name" required v-model="editable.name" onfocus="select()">
+      <input type="text" class="form-control" name="vaultName" id="vaultName" placeholder="Name" required
+        v-model="editable.name" onfocus="select()">
       <label for="vaultName">Name</label>
     </div>
     <div class="form-floating mb-3">
-      <input type="url" class="form-control" name="vaultImg" id="vaultImg" placeholder="Image URL" required v-model="editable.img" onfocus="select()">
+      <input type="url" class="form-control" name="vaultImg" id="vaultImg" placeholder="Image URL" required
+        v-model="editable.img" onfocus="select()">
       <label for="vaultImg">Image URL</label>
+    </div>
+    <div class="form-floating mb-3">
+      <textarea class="form-control" name="vaultDescription" id="vaultDescription" placeholder="Vault Description"
+        required v-model="editable.description" onfocus="select()"></textarea>
+      <label for="vaultDescription">Vault Description</label>
     </div>
     <div class="text-end">
       <span>Private vaults can only be seen by you</span>
@@ -37,7 +44,7 @@ export default {
           Pop.toast(`Created ${editable.value.name}`, "success", "top")
           editable.value = { isPrivate: false }
         }
-        catch(error) {
+        catch (error) {
           Pop.error(error.message, "[createVault]")
         }
       }
@@ -47,4 +54,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+textarea {
+  height: 10.8rem !important;
+}
 </style>
