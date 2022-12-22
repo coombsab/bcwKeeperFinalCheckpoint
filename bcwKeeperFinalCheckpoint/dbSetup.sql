@@ -1,4 +1,4 @@
--- Active: 1671070708972@@SG-cosmic-tailor-7231-7009-mysql-master.servers.mongodirector.com@3306@keeper
+-- Active: 1671737653599@@72.24.148.117@3306@keepr
 
 CREATE TABLE
     IF NOT EXISTS accounts(
@@ -7,15 +7,14 @@ CREATE TABLE
         updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
         name varchar(255) COMMENT 'User Name',
         email varchar(255) COMMENT 'User Email',
-        picture varchar(255) COMMENT 'User Picture',
+        picture MEDIUMTEXT COMMENT 'User Picture',
         coverImg MEDIUMTEXT COMMENT 'User Cover Image',
         bio MEDIUMTEXT COMMENT 'User Bio',
         hobbies MEDIUMTEXT COMMENT 'User Hobbies'
     ) default charset utf8 COMMENT '';
 
-ALTER TABLE accounts
-MODIFY COLUMN picture MEDIUMTEXT COMMENT 'User Picture';
-
+INSERT INTO accounts(name, email, picture, id)
+VALUES("abraham", "abraham@sellenca.com", "https://media.tenor.com/baRH1qGUNj8AAAAC/dq-dragon-quest.gif", "638a23ed6e3a6c5d95dd1236");
 
 CREATE TABLE
     IF NOT EXISTS keeps (
@@ -41,14 +40,11 @@ CREATE TABLE
         updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
         creatorId VARCHAR(255) NOT NULL COMMENT 'Creator Id',
         name VARCHAR(255) NOT NULL COMMENT 'Name of vault',
-        description VARCHAR(255) NOT NULL COMMENT 'Description of vault',
+        description MEDIUMTEXT NOT NULL COMMENT 'Description of vault',
         img MEDIUMTEXT NOT NULL COMMENT 'Cover image of vault',
         isPrivate bool NOT NULL DEFAULT 0,
         FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';
-
-ALTER TABLE vaults
-MODIFY COLUMN description MEDIUMTEXT COMMENT 'Description of vault';
 
 CREATE TABLE
     IF NOT EXISTS vaultKeeps (
